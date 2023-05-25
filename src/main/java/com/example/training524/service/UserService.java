@@ -1,5 +1,6 @@
 package com.example.training524.service;
 
+import com.example.training524.common.utils.UUIDUtil;
 import com.example.training524.dao.UserEntityMapper;
 import com.example.training524.dao.entity.UserEntity;
 import org.mybatis.spring.annotation.MapperScan;
@@ -16,7 +17,7 @@ import java.util.Map;
  */
 
 @Service
-@MapperScan(value = "com.example.training524.dao")
+//@MapperScan(value = "com.example.training524.dao")
 public class UserService {
     @Autowired
     private UserEntityMapper userEntityMapper;
@@ -30,9 +31,18 @@ public class UserService {
     }
 
     /**
+     * 登录
+     */
+    public List<UserEntity> selectUserInfo(UserEntity userEntity){
+        List<UserEntity> result = userEntityMapper.selectUserInfo(userEntity);
+        return result;
+    }
+
+    /**
      * 创建用户
      */
     public int addUserInfo(UserEntity userEntity){
+        userEntity.setId(UUIDUtil.getOneUUID());
         int userResult = userEntityMapper.insert(userEntity);
         if(userResult != 0){
             return 3; // 数字3代表用户存在

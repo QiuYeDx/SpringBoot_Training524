@@ -1,5 +1,6 @@
 package com.example.training524.dao.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @Date 2023/5/25 10:08
  * @Description 计算机实训第一次迭代
  */
-public class UserEntity {
+public class UserEntity implements Serializable {
     private String id;
     private String username;
     private String password;

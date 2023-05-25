@@ -8,5 +8,10 @@ spring:
     password: 20011216
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  mybatis:
-    type-aliases-package: com.example.newDemo.bean
+# 公共配置 与profiles选择无关
+mybatis:
+  type-aliases-package: com.example.training524.dao.entity
+  mapper-locations: classpath:mapper/*.xml
+  # 开启MyBatis的二级缓存
+  configuration:
+    cache-enabled: true

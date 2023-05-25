@@ -34,22 +34,24 @@ onload = () => {
   }
 }
 
-
 const handleCreateUser = () => {
+
+  if (!$('#username').val()) return alert('账号不能为空！')
+  if (!$('#password').val()) return alert('密码不能为空！')
+  if (!($('#startDate').val() && new Date($('#startDate').val()).getTime())) return alert('开始时间不能为空！')
+  if (!($('#endDate').val() && new Date($('#endDate').val()).getTime())) return alert('结束时间不能为空！')
 
   let user = $util.getPageParam('user');
   console.log('--- user ---')
   console.log(user);
+  if(!user) {
+    user = {};
+  }
 
   user.username = $('#username').val();
   user.password = $('#password').val();
   user.startTime = $('#startDate').val() && new Date($('#startDate').val()).getTime();
   user.stopTime = $('#endDate').val() && new Date($('#endDate').val()).getTime();
-
-  if (!user.username) return alert('账号不能为空！')
-  if (!user.password) return alert('密码不能为空！')
-  if (!user.startTime) return alert('开始时间不能为空！')
-  if (!user.stopTime) return alert('结束时间不能为空！')
 
   // 修改
   if(user.id) {
@@ -64,6 +66,7 @@ const handleCreateUser = () => {
         if (res.code === "666") {
           location.href = '/pages/user/index.html'
         } else {
+          console.log(res)
           alert(res.message)
         }
       }
@@ -81,6 +84,7 @@ const handleCreateUser = () => {
         if (res.code === "666") {
           location.href = '/pages/user/index.html'
         } else {
+          console.log(res)
           alert(res.message)
         }
       }

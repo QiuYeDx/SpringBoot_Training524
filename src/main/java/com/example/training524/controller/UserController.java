@@ -31,18 +31,19 @@ public class UserController {
     public HttpResponseEntity userLogin(@RequestBody UserEntity userEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try{
-            List<UserEntity> hasUser = userService.queryUserList(userEntity);
+            List<UserEntity> hasUser = userService.selectUserInfo(userEntity);
             if(CollectionUtils.isEmpty(hasUser)){
                 httpResponseEntity.setCode("0");
                 httpResponseEntity.setData(hasUser.get(0));
                 httpResponseEntity.setMessage("登陆失败");
             }else{
-                httpResponseEntity.setCode("10");
+                httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(hasUser);
                 httpResponseEntity.setMessage("登陆成功");
             }
         }catch(Exception e){
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return httpResponseEntity;
     }
@@ -56,7 +57,7 @@ public class UserController {
         try{
             int result = userService.addUserInfo(userEntity);
             if(result != 0){
-                httpResponseEntity.setCode("10");
+                httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(result);
                 httpResponseEntity.setMessage("创建成功");
             }else{
@@ -65,7 +66,8 @@ public class UserController {
                 httpResponseEntity.setMessage("创建失败");
             }
         }catch(Exception e){
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return httpResponseEntity;
     }
@@ -88,7 +90,8 @@ public class UserController {
                 httpResponseEntity.setMessage("修改失败");
             }
         }catch(Exception e){
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return httpResponseEntity;
     }
@@ -111,7 +114,8 @@ public class UserController {
                 httpResponseEntity.setMessage("删除失败");
             }
         }catch(Exception e){
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return httpResponseEntity;
     }
