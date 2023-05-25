@@ -32,6 +32,11 @@ public interface UserEntityMapper {
     int deleteUserById(UserEntity userEntity);
 
     /**
+     * 根据username删除用户信息
+     */
+    int deleteUserByName(UserEntity userEntity);
+
+    /**
      * 编辑用户信息
      */
     int updateByPrimaryKeySelective(UserEntity userEntity);

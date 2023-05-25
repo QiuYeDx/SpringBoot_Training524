@@ -43,6 +43,7 @@ public class UserService {
      */
     public int addUserInfo(UserEntity userEntity){
         userEntity.setId(UUIDUtil.getOneUUID());
+        userEntity.setStatus("1");
         int userResult = userEntityMapper.insert(userEntity);
         if(userResult != 0){
             return 3; // 数字3代表用户存在
@@ -60,10 +61,18 @@ public class UserService {
     }
 
     /**
-     * 删除用户信息
+     * 根据ID删除用户信息
      */
     public int deleteUserById(UserEntity userEntity){
         int userResult = userEntityMapper.deleteUserById(userEntity);
+        return userResult;
+    }
+
+    /**
+     * 根据username删除用户信息
+     */
+    public int deleteUserByName(UserEntity userEntity){
+        int userResult = userEntityMapper.deleteUserByName(userEntity);
         return userResult;
     }
 

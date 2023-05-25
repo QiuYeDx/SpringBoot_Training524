@@ -22,6 +22,7 @@ const fetchUserList = () => {
     success(res) {
       $('#table #tbody').html('')
       userList = res.data
+      console.log(res)
       res.data.map((item, index) => {
         $('#table #tbody').append(`
           <tr>
@@ -47,7 +48,7 @@ const deleteUser = (id) => {
     id: id
   }
   $.ajax({
-    url: API_BASE_URL + '/admin/deleteUserinfo',
+    url: API_BASE_URL + '/admin/deleteUserById',
     type: 'POST',
     data: JSON.stringify(params),
     dataType: 'json',

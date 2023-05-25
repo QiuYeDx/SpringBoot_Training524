@@ -38,9 +38,14 @@
     #{lastUpdateBy,jdbcType=CHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP})
   </insert>
 
-  <delete id="deleteById" parameterType="com.example.training524.dao.entity.UserEntity">
+  <delete id="deleteUserById" parameterType="com.example.training524.dao.entity.UserEntity">
     delete from user_info
     where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <delete id="deleteUserByName" parameterType="com.example.training524.dao.entity.UserEntity">
+    delete from user_info
+    where username = #{username,jdbcType=VARCHAR}
   </delete>
 
   <update id="updateByPrimaryKey" parameterType="com.example.training524.dao.entity.UserEntity">
