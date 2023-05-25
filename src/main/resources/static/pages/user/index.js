@@ -22,8 +22,8 @@ const fetchUserList = () => {
     success(res) {
       $('#table #tbody').html('')
       userList = res.data
-      console.log(res)
       res.data.map((item, index) => {
+        let json = JSON.stringify(item);
         $('#table #tbody').append(`
           <tr>
             <td>${index + 1}</td>
@@ -32,9 +32,9 @@ const fetchUserList = () => {
             <td>${item.startTime}</td>
             <td>${item.stopTime}</td>
             <td>
-              <button type="button" class="btn btn-link">重置密码</button>
+              <button type="button" class="btn btn-link" onclick={handleReset('${json}')}>重置密码</button>
               <button type="button" class="btn btn-link" onclick="handleEdit('${item.id}')">编辑</button>
-              <button type="button" class="btn btn-link btn-red">关闭</button>
+              <button type="button" class="btn btn-link btn-red" onclick={handleClose('${json}')}>关闭</button>
               <button type="button" class="btn btn-link btn-red" onclick="deleteUser('${item.id}')">删除</button>
             </td>
           </tr>
@@ -58,6 +58,37 @@ const deleteUser = (id) => {
     }
   })
 }
+
+const handleReset = (json) => {
+  let user = JSON.parse(json);
+  user.password = '123456';
+  $.ajax({
+    url: API_BASE_URL + '/admin/modifyUserInfo',
+    type: 'POST',
+    data: JSON.stringify(user),
+    dataType: 'json',
+    contentType: 'application/json',
+    success(res) {
+      fetchUserList()
+    }
+  })
+}
+
+const handleClose = (json) => {
+  let user = JSON.parse(json);
+  user.status = '0';
+  $.ajax({
+    url: API_BASE_URL + '/admin/modifyUserInfo',
+    type: 'POST',
+    data: JSON.stringify(user),
+    dataType: 'json',
+    contentType: 'application/json',
+    success(res) {
+      fetchUserList()
+    }
+  })
+}
+
 const handleTableChange = (page) => {
   if (page === 1) {
     if (pageNum === 1) return

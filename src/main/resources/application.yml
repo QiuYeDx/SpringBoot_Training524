@@ -15,3 +15,4 @@ mybatis:
   # 开启MyBatis的二级缓存
   configuration:
     cache-enabled: true
+    map-underscore-to-camel-case: true

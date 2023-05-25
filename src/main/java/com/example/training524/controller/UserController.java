@@ -105,7 +105,7 @@ public class UserController {
         try{
             int result = userService.modifyUserInfo(userEntity);
             if(result != 0){
-                httpResponseEntity.setCode("10");
+                httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(result);
                 httpResponseEntity.setMessage("修改成功");
             }else{
