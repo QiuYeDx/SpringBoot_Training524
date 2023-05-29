@@ -1,15 +1,17 @@
 onload = () => {
-  $('#headerUsername').text($util.getItem('userInfo').username)
+  $('#headerUsername').text($util.getItem('userInfo')[0].username)
   $('#headerDivB').text('创建项目')
 }
 
 const handleCreateProject = () => {
   let params = {
-    createdBy: $util.getItem('userInfo').username,
-    lastUpdatedBy: $util.getItem('userInfo').username,
+    createdBy: $util.getItem('userInfo')[0].username,
+    lastUpdateBy: $util.getItem('userInfo')[0].username,
     projectName: $('#projectName').val(),
     projectContent: $('#projectDescribe').val()
   }
+  console.log(params);
+  // console.log($util.getItem('userInfo'));
   if (!params.projectName) return alert('项目名称不能为空！')
   if (!params.projectContent) return alert('项目描述不能为空！')
   $.ajax({
@@ -20,6 +22,7 @@ const handleCreateProject = () => {
     contentType: "application/json",
     success() {
       alert('创建成功！')
+      location.href = "/pages/questionnaire/index.html"
     }
   })
 }

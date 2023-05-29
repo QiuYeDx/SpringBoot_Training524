@@ -1,14 +1,55 @@
 onload = () => {
-  $('#headerUsername').text($util.getItem('userInfo').username)
+  $('#headerUsername').text($util.getItem('userInfo')[0].username)
   handleHeaderLoad()
   fetchProjectList()
 }
 
 let projectList = []
 
+const searchProject = () => {
+  if($('#projectName').val() === ''){
+    fetchProjectList();
+    return;
+  }
+  let params = {
+    createdBy: $util.getItem('userInfo')[0].username,
+    projectName: $('#projectName').val()
+  }
+  $.ajax({
+    url: API_BASE_URL + '/selectProjectInfo',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      projectList = res.data
+      $('#content').html('')
+
+      res.data.map(item => {
+        $('#content').append(`
+          <div class="list">
+            <div class="list-header">
+              <div>${item.projectName}</div>
+              <div>
+                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire()">创建问卷</button>
+                <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
+                <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
+                <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
+              </div>
+            </div>
+            <div class="list-footer">
+              <div>暂无调查问卷或问卷已过期</div>
+            </div>
+          </div>
+        `)
+      })
+    }
+  })
+}
+
 const fetchProjectList = () => {
   let params = {
-    createdBy: $util.getItem('userInfo').username,
+    createdBy: $util.getItem('userInfo')[0].username,
     projectName: $('#projectName').val()
   }
   $.ajax({
