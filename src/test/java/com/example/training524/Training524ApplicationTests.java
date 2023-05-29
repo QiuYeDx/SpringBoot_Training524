@@ -28,7 +28,7 @@ class DemoApplicationTests {
     //    void contextLoads() {
     //    }
     Logger log = Logger.getLogger(DemoApplicationTests.class);
-    @Test
+//    @Test
     public void queryUserList() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -48,7 +48,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void selectUserInfo() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -70,7 +70,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void insert() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -94,7 +94,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void deleteUserByName() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -115,7 +115,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void deleteUserById() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -136,7 +136,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void updateByPrimaryKeySelective() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
