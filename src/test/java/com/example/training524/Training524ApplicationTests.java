@@ -1,7 +1,9 @@
 package com.example.training524;
 
 import com.example.training524.common.utils.UUIDUtil;
+import com.example.training524.dao.ProjectEntityMapper;
 import com.example.training524.dao.UserEntityMapper;
+import com.example.training524.dao.entity.ProjectEntity;
 import com.example.training524.dao.entity.UserEntity;
 import com.example.training524.service.UserService;
 import org.apache.ibatis.io.Resources;
@@ -12,7 +14,6 @@ import org.junit.Before;
 
 
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
 
@@ -24,9 +25,7 @@ import org.apache.log4j.Logger;
 
 //@SpringBootTest
 class DemoApplicationTests {
-    //    @Test
-    //    void contextLoads() {
-    //    }
+
     Logger log = Logger.getLogger(DemoApplicationTests.class);
 //    @Test
     public void queryUserList() throws Exception {
@@ -157,6 +156,133 @@ class DemoApplicationTests {
             System.out.println(i);
             // 记录info级别的信息
             log.info(">>修改用户信息测试成功");
+        }
+    }
+
+    @Test
+    public void queryProjectList() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setCreatedBy("QiuYeDx");
+        List<ProjectEntity> list = projectEntityMapper.queryProjectList(projectEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>queryProjectList项目列表查询测试成功");
+        }
+    }
+    @Test
+    public void insertProject() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setId(UUIDUtil.getOneUUID());
+        projectEntity.setProjectName("新项目名称");
+        projectEntity.setProjectContent("新项目描述");
+        projectEntity.setCreatedBy("QiuYeDx");
+        int i = projectEntityMapper.insert(projectEntity);
+        if(i==0){
+            // 记录error级别的信息
+        }else{
+            System.out.println(i);
+            // 记录info级别的信息
+            log.info(">>insert项目插入测试成功");
+        }
+    }
+    @Test
+    public void deleteProjectById() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setId("c66496c28ffb4a0a8f82cc3fe444c74d");
+        int i = projectEntityMapper.deleteProjectById(projectEntity);
+        if(i==0){
+            // 记录error级别的信息
+        }else{
+            System.out.println(i);
+            // 记录info级别的信息
+            log.info(">>deleteProjectById根据ID删除项目测试成功");
+        }
+    }
+    @Test
+    public void updateByPrimaryKeySelective_project() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setId("c66496c28ffb4a0a8f82cc3fe444c74d");
+        projectEntity.setProjectName("Project Edited");
+        projectEntity.setProjectContent("该Project描述已编辑");
+        int i = projectEntityMapper.updateByPrimaryKeySelective(projectEntity);
+        if(i==0){
+            // 记录error级别的信息
+        }else{
+            System.out.println(i);
+            // 记录info级别的信息
+            log.info(">>修改项目信息测试成功");
+        }
+    }
+    @Test
+    public void selectProjectInfo() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setCreatedBy("QiuYeDx");
+        projectEntity.setProjectName("Project B");
+        List<ProjectEntity> list = projectEntityMapper.selectProjectInfo(projectEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>selectProjectInfo根据项目名称和创建人获取项目测试成功");
+        }
+    }
+    @Test
+    public void selectProjectInfoById() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        ProjectEntityMapper projectEntityMapper = sqlSession.getMapper(ProjectEntityMapper.class);
+        //调用projectMapper的方法
+        ProjectEntity projectEntity = new ProjectEntity();
+        projectEntity.setId("62306a01114e44db81a0cefb3b9145c3");
+        List<ProjectEntity> list = projectEntityMapper.selectProjectInfoById(projectEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>selectProjectInfoById根据项目ID获取项目测试成功");
         }
     }
 }
