@@ -1,6 +1,6 @@
 package com.example.training524.dao;
 
-import com.example.training524.dao.entity.ProjectEntity;
+import com.example.training524.dao.entity.QuestionnaireEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -17,32 +17,42 @@ import java.util.Map;
 @Component
 public interface QuestionnaireEntityMapper {
     /**
-     * 查询项目[信息]列表
+     * 根据项目ID查询问卷列表
      */
-    List<ProjectEntity> queryProjectList(ProjectEntity projectEntity);
+    QuestionnaireEntity queryQuestionnaire(QuestionnaireEntity projectEntity);
+
+    List<QuestionnaireEntity> queryQuestionnaireList(QuestionnaireEntity projectEntity);
+
+    List<QuestionnaireEntity> queryQuestionnaireListNow(QuestionnaireEntity projectEntity);
 
     /**
-     * 创建项目的基本信息
+     * 创建新问卷
      */
-    int insert(ProjectEntity projectEntity);
+    int createQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
-     * 根据ID删除项目信息
+     * 回答问卷
      */
-    int deleteProjectById(ProjectEntity projectEntity);
+    int answerQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
-     * 编辑项目信息
+     * 发布问卷
      */
-    int updateByPrimaryKeySelective(ProjectEntity projectEntity);
+    int publicQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
-     * 根据项目名称查询项目
+     * 分享问卷链接
      */
-    List<ProjectEntity> selectProjectInfo(ProjectEntity projectEntity);
+    int shareQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
-     * 根据项目ID查询项目
+     * 预览问卷
      */
-    List<ProjectEntity> selectProjectInfoById(ProjectEntity projectEntity);
+    int previewQuestionnaire(QuestionnaireEntity projectEntity);
+
+    /**
+     * 查询问卷回答统计结果
+     */
+    String queryQuestionnaireResult(QuestionnaireEntity projectEntity);
+
 }

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.training524.dao.QuestionnaireEntityMapper">
+    <resultMap id="BaseResultMap" type="com.example.training524.dao.entity.QuestionnaireEntity">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <id column="project_id" jdbcType="VARCHAR" property="projectId" />
+        <result column="questionnaire_name" jdbcType="VARCHAR" property="questionnaireName" />
+        <result column="questionnaire_description" jdbcType="VARCHAR" property="questionnaireDescription" />
+        <result column="questionnaire_content" jdbcType="VARCHAR" property="questionnaireContent" />
+        <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+        <result column="creation_date" jdbcType="TIMESTAMP" property="creationDate" />
+        <result column="last_updated_by" jdbcType="VARCHAR" property="lastUpdatedBy" />
+        <result column="last_update_date" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+        <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, project_id, questionnaire_name, questionnaire_description, questionnaire_content, created_by, creation_date,
+    last_updated_by, last_update_date, start_date, end_date, release_date
+    </sql>
+
+    <!--根据项目ID查询问卷列表-->
+    <select id="queryQuestionnaireList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
+        SELECT
+            *
+        FROM questionnaire_info
+        WHERE project_id = #{projectId,jdbcType=VARCHAR}
+    </select>
+
+    <!--根据问卷ID查询问卷信息-->
+    <select id="queryQuestionnaire" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
+        SELECT
+            *
+        FROM questionnaire_info
+        WHERE id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="createQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
+        insert into questionnaire_info (id, project_id, questionnaire_name, questionnaire_description, questionnaire_content,
+                                  created_by, creation_date,
+                                  last_updated_by, last_update_date, start_date, end_date, release_date)
+        values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{questionnaireName,jdbcType=VARCHAR}, #{questionnaireDescription,jdbcType=VARCHAR}, #{questionnaireContent,jdbcType=VARCHAR},
+                #{createdBy,jdbcType=VARCHAR}, DEFAULT,
+                #{lastUpdatedBy,jdbcType=VARCHAR}, DEFAULT, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{releaseDate,jdbcType=TIMESTAMP})
+    </insert>
+
+    <!--根据项目ID查询问卷列表 && 未到期的-->
+    <select id="queryQuestionnaireListNow" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
+        SELECT
+            *
+        FROM questionnaire_info
+        WHERE project_id = #{projectId,jdbcType=VARCHAR} AND end_date > CURRENT_DATE
+    </select>
+
+<!--    <delete id="deleteQuestionnaireById" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
+<!--        delete from questionnaire_info-->
+<!--        where id = #{id,jdbcType=VARCHAR}-->
+<!--    </delete>-->
+
+<!--    <update id="updateByPrimaryKey" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
+<!--        update questionnaire_info-->
+<!--        set project_id = #{projectId,jdbcType=VARCHAR},-->
+<!--            questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},-->
+<!--            questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR},-->
+<!--            created_by = #{createdBy,jdbcType=VARCHAR},-->
+<!--            creation_date = #{creationDate,jdbcType=TIMESTAMP},-->
+<!--            last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},-->
+<!--            last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP}-->
+<!--        where id = #{id,jdbcType=VARCHAR}-->
+<!--    </update>-->
+
+<!--    <update id="updateByPrimaryKeySelective" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
+<!--        update questionnaire_info-->
+<!--        <set>-->
+<!--            <if test="questionnaireName != null">-->
+<!--                questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},-->
+<!--            </if>-->
+
+<!--            <if test="questionnaireContent != null">-->
+<!--                questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR},-->
+<!--            </if>-->
+
+<!--            <if test="projectId != null">-->
+<!--                project_id = #{projectId,jdbcType=VARCHAR},-->
+<!--            </if>-->
+
+<!--            <if test="createdBy != null">-->
+<!--                created_by = #{createdBy,jdbcType=VARCHAR},-->
+<!--            </if>-->
+<!--            <if test="creationDate != null">-->
+<!--                creation_date = #{creationDate,jdbcType=TIMESTAMP},-->
+<!--            </if>-->
+<!--            <if test="lastUpdatedBy != null">-->
+<!--                last_updated_by = #{lastUpdatedBy,jdbcType=VARCHAR},-->
+<!--            </if>-->
+<!--            <if test="lastUpdateDate != null">-->
+<!--                last_update_date = #{lastUpdateDate,jdbcType=TIMESTAMP},-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        where id = #{id,jdbcType=VARCHAR}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash;根据项目名查找项目信息&ndash;&gt;-->
+<!--    <select id="selectQuestionnaireInfo" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">-->
+<!--        SELECT *-->
+<!--        FROM questionnaire_info-->
+<!--        WHERE questionnaire_name = #{questionnaireName,jdbcType=VARCHAR} AND created_by = #{createdBy,jdbcType=VARCHAR}-->
+<!--    </select>-->
+
+<!--    &lt;!&ndash;根据项目ID查找项目信息&ndash;&gt;-->
+<!--    <select id="selectQuestionnaireInfoById" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">-->
+<!--        SELECT *-->
+<!--        FROM questionnaire_info-->
+<!--        WHERE id = #{id,jdbcType=VARCHAR}-->
+<!--    </select>-->
+
+</mapper>

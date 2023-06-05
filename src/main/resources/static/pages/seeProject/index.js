@@ -5,6 +5,7 @@ onload = () => {
   let projectId = $util.getPageParam('seeProject')
   console.log(projectId, 'projectId')
   fetchProjectInfo(projectId)
+  fetchQuestionnaireList(projectId)
 }
 
 const fetchProjectInfo = (id) => {
@@ -24,6 +25,38 @@ const fetchProjectInfo = (id) => {
       $('#personInCharge').text(info.createdBy)
       $('#createTime').text(info.creationDate)
       $('#projectDescription').text(info.projectContent)
+    }
+  })
+}
+
+const fetchQuestionnaireList = (id) => {
+  let params = {
+    projectId: id
+  }
+  $.ajax({
+    url: API_BASE_URL + '/questionnaire/queryQuestionnaireList',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      let questionnaireList = res.data
+      console.log(questionnaireList, 'res')
+      res.data.map((item, index) => {
+        $('#content').append(`
+          <tr>
+            <td>${index + 1}</td>
+            <td>${item.questionnaireName || '未发布'}</td>
+            <td>${item.releaseDate || '未发布'}</td>
+            <td>
+              <button type="button" class="btn btn-link">发布</button>
+              <button type="button" class="btn btn-link">关闭</button>
+              <button type="button" class="btn btn-link btn-red">链接</button>
+              <button type="button" class="btn btn-link btn-red">统计</button>
+            </td>
+          </tr>
+        `)
+      })
     }
   })
 }

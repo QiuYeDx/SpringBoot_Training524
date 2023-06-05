@@ -18,6 +18,9 @@ public class QuestionnaireEntity {
     private Date creationDate;
     private String lastUpdatedBy;
     private Date lastUpdateDate;
+    private Date startDate;
+    private Date endDate;
+    private Date releaseDate;
 
     public String getId() {
         return id;
@@ -91,6 +94,30 @@ public class QuestionnaireEntity {
         this.lastUpdateDate = lastUpdateDate;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     @Override
     public String toString() {
         return "QuestionnaireEntity{" +
@@ -103,6 +130,9 @@ public class QuestionnaireEntity {
                 ", creationDate=" + creationDate +
                 ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
                 ", lastUpdateDate=" + lastUpdateDate +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", releaseDate=" + releaseDate +
                 '}';
     }
 }

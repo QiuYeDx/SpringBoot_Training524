@@ -5,6 +5,8 @@ onload = () => {
 }
 
 let projectList = []
+let questionnaireList = []
+let qSet = []
 
 const searchProject = () => {
   if($('#projectName').val() === ''){
@@ -26,12 +28,13 @@ const searchProject = () => {
       $('#content').html('')
 
       res.data.map(item => {
+        let tmp_param = encodeURIComponent(JSON.stringify({name: item.projectName, id: item.id}));
         $('#content').append(`
           <div class="list">
             <div class="list-header">
               <div>${item.projectName}</div>
               <div>
-                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire()">创建问卷</button>
+                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire('${tmp_param}')">创建问卷</button>
                 <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
                 <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
                 <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
@@ -62,24 +65,89 @@ const fetchProjectList = () => {
       projectList = res.data
       $('#content').html('')
 
-      res.data.map(item => {
-        $('#content').append(`
-          <div class="list">
-            <div class="list-header">
-              <div>${item.projectName}</div>
-              <div>
-                <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire()">创建问卷</button>
-                <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
-                <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
-                <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
+      res.data.map((item, _index) => {
+        let tmp_param = encodeURIComponent(JSON.stringify({name: item.projectName, id: item.id}));
+
+        $.ajax({
+          url: API_BASE_URL + '/questionnaire/queryQuestionnaireListNow',
+          type: "POST",
+          data: JSON.stringify({projectId: item.id}),
+          dataType: "json",
+          contentType: "application/json",
+          success(r) {
+            questionnaireList = r.data.length !== 0 ? r.data : [];
+            if(r){
+              if(questionnaireList !== [])
+                qSet.push(item.id);
+              $('#content').append(`
+              <div class="list">
+                <div class="list-header">
+                  <div>${item.projectName}</div>
+                  <div>
+                    <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire('${tmp_param}')">创建问卷</button>
+                    <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
+                    <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
+                    <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
+                  </div>
+                </div>
+                <div class="list-footer">
+                  <div class="questionnaire-list">
+                    ${questionnaireList.map((v) => {
+                return `<div class="questionnaire">
+                        <h3 class="questionnaire-title">${'问卷标题：' + v.questionnaireName || '问卷标题'}</h3>
+                        <p class="questionnaire-description">${'问卷描述：' + v.questionnaireDescription || '问卷描述'}</p>
+                        <div class="gap"></div>
+                      </div>`
+              }).join('')}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="list-footer">
-              <div>暂无调查问卷或问卷已过期</div>
-            </div>
-          </div>
-        `)
-      })
+            `);
+            }
+
+
+
+            if(_index === res.data.length - 1){
+                window.setTimeout(() => {
+                  // 使用 Array.filter() 过滤掉 projectList 中 projectId 在 qSet 中存在的对象
+                  let qSets = new Set(qSet);
+                  const filteredA = projectList.filter(obj => !qSets.has(obj.id));
+                  console.log(qSet);
+                  console.log(qSets);
+                  console.log(filteredA);
+                  filteredA.map((item) => {
+                    let tmp_param = encodeURIComponent(JSON.stringify({name: item.projectName, id: item.id}));
+                    $('#content').append(`
+                    <div class="list">
+                      <div class="list-header">
+                        <div>${item.projectName}</div>
+                        <div>
+                          <button type="button" class="btn btn-link" onclick="onCreateQuestionnaire('${tmp_param}')">创建问卷</button>
+                          <button type="button" class="btn btn-link" onclick="onSeeProject('${item.id}')">查看</button>
+                          <button type="button" class="btn btn-link" onclick="onEditProject('${item.id}')">编辑</button>
+                          <button type="button" class="btn btn-link" onclick="onDelProject('${item.id}')">删除</button>
+                        </div>
+                      </div>
+                      <div class="list-footer">
+                        <div class="questionnaire-list">
+                          <div class="no-questionnaire">暂无调查问卷或问卷已过期</div>
+                        </div>
+                      </div>
+                    </div>
+                  `);
+                  });
+                }, 500);
+            }
+
+
+
+
+          }
+        });
+      });
+
+
+
     }
   })
 }
@@ -88,7 +156,13 @@ const onCreatePrject = () => {
   location.href = "/pages/createProject/index.html"
 }
 
-const onCreateQuestionnaire = () => {
+const onCreateQuestionnaire = (arr) => {
+  arr = decodeURIComponent(arr);
+  console.log(arr);
+  let item = JSON.parse(arr);
+  console.log(item);
+  $util.setPageParam('projectName', item.name)
+  $util.setPageParam('projectId', item.id)
   location.href = "/pages/createQuestionnaire/index.html"
 }
 

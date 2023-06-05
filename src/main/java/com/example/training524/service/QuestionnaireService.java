@@ -1,8 +1,8 @@
 package com.example.training524.service;
 
 import com.example.training524.common.utils.UUIDUtil;
-import com.example.training524.dao.ProjectEntityMapper;
-import com.example.training524.dao.entity.ProjectEntity;
+import com.example.training524.dao.QuestionnaireEntityMapper;
+import com.example.training524.dao.entity.QuestionnaireEntity;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,59 +18,58 @@ import java.util.Map;
 @Service
 public class QuestionnaireService {
     @Autowired
-    private ProjectEntityMapper projectEntityMapper;
+    private QuestionnaireEntityMapper questionnaireEntityMapper;
 
     /**
-     * 查询项目列表
+     * 根据项目ID查询问卷列表
      */
-    public List<ProjectEntity> queryProjectList(ProjectEntity projectEntity){
-        List<ProjectEntity> result = projectEntityMapper.queryProjectList(projectEntity);
-        return result;
-    }
-
-    /**
-     * 根据项目名称查询项目
-     */
-    public List<ProjectEntity> selectProjectInfo(ProjectEntity projectEntity){
-        List<ProjectEntity> result = projectEntityMapper.selectProjectInfo(projectEntity);
+    public List<QuestionnaireEntity> queryQuestionnaireList(QuestionnaireEntity questionnaireEntity){
+        List<QuestionnaireEntity> result = questionnaireEntityMapper.queryQuestionnaireList(questionnaireEntity);
         return result;
     }
 
     /**
      * 根据项目ID查询项目
      */
-    public List<ProjectEntity> selectProjectInfoById(ProjectEntity projectEntity){
-        List<ProjectEntity> result = projectEntityMapper.selectProjectInfoById(projectEntity);
+    public QuestionnaireEntity queryQuestionnaire(QuestionnaireEntity questionnaireEntity){
+        QuestionnaireEntity result = questionnaireEntityMapper.queryQuestionnaire(questionnaireEntity);
         return result;
     }
 
     /**
      * 创建项目
      */
-    public int addProjectInfo(ProjectEntity projectEntity){
-        projectEntity.setId(UUIDUtil.getOneUUID());
-        int projectResult = projectEntityMapper.insert(projectEntity);
-        if(projectResult != 0){
+    public int createQuestionnaire(QuestionnaireEntity questionnaireEntity){
+        questionnaireEntity.setId(UUIDUtil.getOneUUID());
+        int questionnaireResult = questionnaireEntityMapper.createQuestionnaire(questionnaireEntity);
+        if(questionnaireResult != 0){
             return 3; // 数字3代表项目存在
         }else{
-            return projectResult;
+            return questionnaireResult;
         }
     }
 
     /**
-     * 修改项目信息
+     * 根据项目ID查询问卷列表 && 未到期的
      */
-    public int modifyProjectInfo(ProjectEntity projectEntity){
-        int projectResult = projectEntityMapper.updateByPrimaryKeySelective(projectEntity);
-        return projectResult;
+    public List<QuestionnaireEntity> queryQuestionnaireListNow(QuestionnaireEntity questionnaireEntity){
+        List<QuestionnaireEntity> result = questionnaireEntityMapper.queryQuestionnaireListNow(questionnaireEntity);
+        return result;
     }
+//    /**
+//     * 修改项目信息
+//     */
+//    public int modifyQuestionnaireInfo(QuestionnaireEntity questionnaireEntity){
+//        int questionnaireResult = questionnaireEntityMapper.updateByPrimaryKeySelective(questionnaireEntity);
+//        return questionnaireResult;
+//    }
 
-    /**
-     * 根据ID删除项目信息
-     */
-    public int deleteProjectById(ProjectEntity projectEntity){
-        int projectResult = projectEntityMapper.deleteProjectById(projectEntity);
-        return projectResult;
-    }
+//    /**
+//     * 根据ID删除项目信息
+//     */
+//    public int deleteQuestionnaireById(QuestionnaireEntity questionnaireEntity){
+//        int questionnaireResult = questionnaireEntityMapper.deleteQuestionnaireById(questionnaireEntity);
+//        return questionnaireResult;
+//    }
 
 }

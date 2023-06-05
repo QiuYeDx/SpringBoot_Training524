@@ -9,3 +9,4 @@
 2023-06-05 16:29:32[ INFO ]>>insert项目插入测试成功
 2023-06-05 16:29:32[ INFO ]>>selectProjectInfo根据项目名称和创建人获取项目测试成功
 2023-06-05 16:30:22[ INFO ]>>selectProjectInfoById根据项目ID获取项目测试成功
+2023-06-05 18:52:21[ INFO ]>>selectProjectInfoById根据项目ID获取项目测试成功

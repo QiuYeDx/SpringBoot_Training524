@@ -1,9 +1,12 @@
 onload = () => {
   $('#headerUsername').text($util.getItem('userInfo')[0].username)
   $('#headerDivB').text('创建问卷')
+  $('#option_project_name').text($util.getItem('pageParams').projectName)
 }
 
 const onCreateTemplate = () => {
+  if(!$('#selectLeo').val()) return alert('请选择「所属项目」！');
+  if(!$('#selectLeo2').val()) return alert('请选择「调查类型」！');
   location.href = "/pages/createNewQuestionnaire/index.html"
 }
 

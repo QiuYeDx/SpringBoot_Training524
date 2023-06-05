@@ -1,8 +1,8 @@
 package com.example.training524.controller;
 
 import com.example.training524.beans.HttpResponseEntity;
-import com.example.training524.dao.entity.ProjectEntity;
-import com.example.training524.service.ProjectService;
+import com.example.training524.dao.entity.QuestionnaireEntity;
+import com.example.training524.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,26 +19,26 @@ import java.util.List;
  * @Description 计算机实训第三次迭代
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/questionnaire")
 public class QuestionnaireController {
     @Autowired
-    private ProjectService projectService;
+    private QuestionnaireService questionnaireService;
 
     /**
-     * 根据项目名称查询项目
+     * 根据问卷ID查询问卷
      */
-    @RequestMapping(value = "/selectProjectInfo", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity selectProjectInfo(@RequestBody ProjectEntity projectEntity){
+    @RequestMapping(value = "/queryQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity queryQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try{
-            List<ProjectEntity> hasProject = projectService.selectProjectInfo(projectEntity);
-            if(CollectionUtils.isEmpty(hasProject)){
+            QuestionnaireEntity questionnaire = questionnaireService.queryQuestionnaire(questionnaireEntity);
+            if(questionnaire == null){
                 httpResponseEntity.setCode("0");
-                httpResponseEntity.setData(hasProject.get(0));
+                httpResponseEntity.setData(null);
                 httpResponseEntity.setMessage("查询失败");
             }else{
                 httpResponseEntity.setCode("666");
-                httpResponseEntity.setData(hasProject);
+                httpResponseEntity.setData(questionnaire);
                 httpResponseEntity.setMessage("查询成功");
             }
         }catch(Exception e){
@@ -49,20 +49,20 @@ public class QuestionnaireController {
     }
 
     /**
-     * 根据项目ID查询项目
+     * 根据项目ID查询问卷列表
      */
-    @RequestMapping(value = "/selectProjectInfoById", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity selectProjectInfoById(@RequestBody ProjectEntity projectEntity){
+    @RequestMapping(value = "/queryQuestionnaireList", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity queryQuestionnaireList(@RequestBody QuestionnaireEntity questionnaireEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try{
-            List<ProjectEntity> hasProject = projectService.selectProjectInfoById(projectEntity);
-            if(CollectionUtils.isEmpty(hasProject)){
+            List<QuestionnaireEntity> hasQuestionnaire = questionnaireService.queryQuestionnaireList(questionnaireEntity);
+            if(CollectionUtils.isEmpty(hasQuestionnaire)){
                 httpResponseEntity.setCode("0");
-                httpResponseEntity.setData(hasProject.get(0));
-                httpResponseEntity.setMessage("查询失败");
+                httpResponseEntity.setData(null);
+                httpResponseEntity.setMessage("无问卷信息");
             }else{
                 httpResponseEntity.setCode("666");
-                httpResponseEntity.setData(hasProject);
+                httpResponseEntity.setData(hasQuestionnaire);
                 httpResponseEntity.setMessage("查询成功");
             }
         }catch(Exception e){
@@ -73,37 +73,13 @@ public class QuestionnaireController {
     }
 
     /**
-     * 项目列表查询
+     * 创建问卷
      */
-    @RequestMapping(value = "/queryProjectList", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity queryProjectList(@RequestBody ProjectEntity projectEntity){
+    @RequestMapping(value = "/createQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity createQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try{
-            List<ProjectEntity> hasProject = projectService.queryProjectList(projectEntity);
-            if(CollectionUtils.isEmpty(hasProject)){
-                httpResponseEntity.setCode("0");
-                httpResponseEntity.setData(hasProject.get(0));
-                httpResponseEntity.setMessage("无项目信息");
-            }else{
-                httpResponseEntity.setCode("666");
-                httpResponseEntity.setData(hasProject);
-                httpResponseEntity.setMessage("查询成功");
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return httpResponseEntity;
-    }
-
-    /**
-     * 项目添加
-     */
-    @RequestMapping(value = "/addProjectInfo", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity addProjectInfo(@RequestBody ProjectEntity projectEntity){
-        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-        try{
-            int result = projectService.addProjectInfo(projectEntity);
+            int result = questionnaireService.createQuestionnaire(questionnaireEntity);
             if(result != 0){
                 httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(result);
@@ -121,23 +97,21 @@ public class QuestionnaireController {
     }
 
     /**
-     * 项目修改
+     * 根据项目ID查询问卷列表 && 未到期的
      */
-    @RequestMapping(value = "/modifyProjectInfo", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity modifyProjectInfo(@RequestBody ProjectEntity projectEntity){
+    @RequestMapping(value = "/queryQuestionnaireListNow", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity queryQuestionnaireListNow(@RequestBody QuestionnaireEntity questionnaireEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-        Date currentTime = new Date();
         try{
-            projectEntity.setLastUpdateDate(currentTime);
-            int result = projectService.modifyProjectInfo(projectEntity);
-            if(result != 0){
-                httpResponseEntity.setCode("666");
-                httpResponseEntity.setData(result);
-                httpResponseEntity.setMessage("修改成功");
-            }else{
+            List<QuestionnaireEntity> hasQuestionnaire = questionnaireService.queryQuestionnaireListNow(questionnaireEntity);
+            if(CollectionUtils.isEmpty(hasQuestionnaire)){
                 httpResponseEntity.setCode("0");
-                httpResponseEntity.setData(0);
-                httpResponseEntity.setMessage("修改失败");
+                httpResponseEntity.setData(null);
+                httpResponseEntity.setMessage("无问卷信息");
+            }else{
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(hasQuestionnaire);
+                httpResponseEntity.setMessage("查询成功");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -146,28 +120,54 @@ public class QuestionnaireController {
         return httpResponseEntity;
     }
 
-    /**
-     * 根据ID删除项目
-     */
-    @RequestMapping(value = "/deleteProjectById", method = RequestMethod.POST, headers = "Accept=application/json")
-    public HttpResponseEntity deleteProjectById(@RequestBody ProjectEntity projectEntity){
-        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
-        try{
-            int result = projectService.deleteProjectById(projectEntity);
-            if(result != 0){
-                httpResponseEntity.setCode("10");
-                httpResponseEntity.setData(result);
-                httpResponseEntity.setMessage("删除成功");
-            }else{
-                httpResponseEntity.setCode("0");
-                httpResponseEntity.setData(0);
-                httpResponseEntity.setMessage("删除失败");
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return httpResponseEntity;
-    }
+//    /**
+//     * 项目修改
+//     */
+//    @RequestMapping(value = "/modifyQuestionnaireInfo", method = RequestMethod.POST, headers = "Accept=application/json")
+//    public HttpResponseEntity modifyQuestionnaireInfo(@RequestBody QuestionnaireEntity questionnaireEntity){
+//        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+//        Date currentTime = new Date();
+//        try{
+//            questionnaireEntity.setLastUpdateDate(currentTime);
+//            int result = questionnaireService.modifyQuestionnaireInfo(questionnaireEntity);
+//            if(result != 0){
+//                httpResponseEntity.setCode("666");
+//                httpResponseEntity.setData(result);
+//                httpResponseEntity.setMessage("修改成功");
+//            }else{
+//                httpResponseEntity.setCode("0");
+//                httpResponseEntity.setData(0);
+//                httpResponseEntity.setMessage("修改失败");
+//            }
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return httpResponseEntity;
+//    }
+
+//    /**
+//     * 根据ID删除项目
+//     */
+//    @RequestMapping(value = "/deleteQuestionnaireById", method = RequestMethod.POST, headers = "Accept=application/json")
+//    public HttpResponseEntity deleteQuestionnaireById(@RequestBody QuestionnaireEntity questionnaireEntity){
+//        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+//        try{
+//            int result = questionnaireService.deleteQuestionnaireById(questionnaireEntity);
+//            if(result != 0){
+//                httpResponseEntity.setCode("10");
+//                httpResponseEntity.setData(result);
+//                httpResponseEntity.setMessage("删除成功");
+//            }else{
+//                httpResponseEntity.setCode("0");
+//                httpResponseEntity.setData(0);
+//                httpResponseEntity.setMessage("删除失败");
+//            }
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//        }
+//        return httpResponseEntity;
+//    }
 
 }
