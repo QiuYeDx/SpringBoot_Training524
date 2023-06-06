@@ -210,6 +210,7 @@ const singleChoiceDelOption = (problemIndex, optionIndex) => {
 }
 
 const singleChoiceEditFinish = (problemIndex) => {
+  problem[problemIndex].type = 1; // 单选
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -275,6 +276,7 @@ const multipleChoiceDelOption = (problemIndex, optionIndex) => {
 }
 
 const multipleChoiceEditFinish = (problemIndex) => {
+  problem[problemIndex].type = 2; // 多选
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -313,6 +315,7 @@ const handleAddFillBlanks = () => {
 }
 
 const fillBlanksEditFinish = (problemIndex) => {
+  problem[problemIndex].type = 3; // 填空
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -371,6 +374,7 @@ const matrixDelOption = (problemIndex, optionIndex) => {
 }
 
 const matrixEditFinish = (problemIndex) => {
+  problem[problemIndex].type = 4; // 矩阵
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -465,6 +469,7 @@ const gaugeDelOption = (problemIndex, optionIndex) => {
 }
 
 const gaugeEditFinish = (problemIndex) => {
+  problem[problemIndex].type = 5; // 量表
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'flex')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -511,4 +516,9 @@ const handleEditFinish = () => {
       location.href = "/pages/questionnaire/index.html"
     }
   })
+}
+
+const onPreview = () => {
+  $util.setItem('problemList', problem);
+  location.href = '/pages/answerSheet/index.html';
 }
