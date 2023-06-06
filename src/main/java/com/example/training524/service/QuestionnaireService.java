@@ -39,13 +39,13 @@ public class QuestionnaireService {
     /**
      * 创建项目
      */
-    public int createQuestionnaire(QuestionnaireEntity questionnaireEntity){
+    public String createQuestionnaire(QuestionnaireEntity questionnaireEntity){
         questionnaireEntity.setId(UUIDUtil.getOneUUID());
         int questionnaireResult = questionnaireEntityMapper.createQuestionnaire(questionnaireEntity);
-        if(questionnaireResult != 0){
-            return 3; // 数字3代表项目存在
+        if(questionnaireResult != 1){
+            return "3"; // 数字3代表项目存在
         }else{
-            return questionnaireResult;
+            return questionnaireEntity.getId();
         }
     }
 
@@ -56,13 +56,21 @@ public class QuestionnaireService {
         List<QuestionnaireEntity> result = questionnaireEntityMapper.queryQuestionnaireListNow(questionnaireEntity);
         return result;
     }
-//    /**
-//     * 修改项目信息
-//     */
-//    public int modifyQuestionnaireInfo(QuestionnaireEntity questionnaireEntity){
-//        int questionnaireResult = questionnaireEntityMapper.updateByPrimaryKeySelective(questionnaireEntity);
-//        return questionnaireResult;
-//    }
+
+    /**
+     * 根据问卷ID发布问卷
+     */
+    public int publicQuestionnaire(QuestionnaireEntity questionnaireEntity){
+        int result = questionnaireEntityMapper.publicQuestionnaire(questionnaireEntity);
+        return result;
+    }
+    /**
+     * 修改项目信息
+     */
+    public int modifyQuestionnaire(QuestionnaireEntity questionnaireEntity){
+        int questionnaireResult = questionnaireEntityMapper.modifyQuestionnaire(questionnaireEntity);
+        return questionnaireResult;
+    }
 
 //    /**
 //     * 根据ID删除项目信息

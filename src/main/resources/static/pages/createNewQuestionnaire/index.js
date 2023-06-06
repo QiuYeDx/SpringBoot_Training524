@@ -56,10 +56,11 @@ const createQuestionnaire = () => {
     data: JSON.stringify(params),
     dataType: "json",
     contentType: "application/json",
-    success() {
-      alert('创建成功！')
+    success(res) {
+      $util.setPageParam('questionnaireId', res.data);
       $util.setPageParam('seeProject', params.projectId);
-      location.href = "/pages/seeProject/index.html"
+      alert('创建成功！')
+      location.href = "/pages/designQuestionnaire/index.html"
     }
   })
 }

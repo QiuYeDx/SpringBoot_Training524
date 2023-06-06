@@ -56,6 +56,18 @@
         WHERE project_id = #{projectId,jdbcType=VARCHAR} AND end_date > CURRENT_DATE AND is_active = 'true'
     </select>
 
+    <update id="publicQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
+        update questionnaire_info
+        set release_date = #{releaseDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="modifyQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
+        update questionnaire_info
+        set questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
 <!--    <delete id="deleteQuestionnaireById" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
 <!--        delete from questionnaire_info-->
 <!--        where id = #{id,jdbcType=VARCHAR}-->

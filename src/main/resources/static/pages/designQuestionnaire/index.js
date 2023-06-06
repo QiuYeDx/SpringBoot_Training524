@@ -494,15 +494,21 @@ const handleModifyTitle = () => {
 
 
 const handleEditFinish = () => {
-  let params = {}
+  let contentJsonString = encodeURIComponent(JSON.stringify(problem));
+  let params = {
+    id: $util.getItem('pageParams').questionnaireId,
+    questionnaireContent: contentJsonString
+  }
   $.ajax({
-    url: API_BASE_URL + '/modifyQuestionnaire',
+    url: API_BASE_URL + '/questionnaire/modifyQuestionnaire',
     type: "POST",
     data: JSON.stringify(params),
     dataType: "json",
-    contentType: "application/jsoresn",
+    contentType: "application/json",
     success(res) {
-      console.log(res)
+      // console.log(res)
+      alert('编辑成功！')
+      location.href = "/pages/questionnaire/index.html"
     }
   })
 }

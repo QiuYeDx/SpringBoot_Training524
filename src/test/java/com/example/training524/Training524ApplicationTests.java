@@ -374,4 +374,46 @@ class DemoApplicationTests {
             log.info(">>createQuestionnaire创建问卷测试成功");
         }
     }
+
+    @Test
+    public void modifyQuestionnaire() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setProjectId("8c3942a60c0b46648ba3c2b17a0df08b");
+        int result = questionnaireEntityMapper.modifyQuestionnaire(questionnaireEntity);
+        if(result != -1){
+            // 记录error级别的信息
+        }else{
+            System.out.println(result);
+            // 记录info级别的信息
+            log.info(">>modifyQuestionnaire问卷编辑测试成功");
+        }
+    }
+
+    @Test
+    public void publicQuestionnaire() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setProjectId("8c3942a60c0b46648ba3c2b17a0df08b");
+        int result = questionnaireEntityMapper.publicQuestionnaire(questionnaireEntity);
+        if(result != -1){
+            // 记录error级别的信息
+        }else{
+            System.out.println(result);
+            // 记录info级别的信息
+            log.info(">>publicQuestionnaire发布问卷测试成功");
+        }
+    }
 }

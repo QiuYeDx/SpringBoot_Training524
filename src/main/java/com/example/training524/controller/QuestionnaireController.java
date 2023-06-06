@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author 白子涵
@@ -79,8 +80,8 @@ public class QuestionnaireController {
     public HttpResponseEntity createQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
         HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
         try{
-            int result = questionnaireService.createQuestionnaire(questionnaireEntity);
-            if(result != 0){
+            String result = questionnaireService.createQuestionnaire(questionnaireEntity);
+            if(!Objects.equals(result, "3")){
                 httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(result);
                 httpResponseEntity.setMessage("创建成功");
@@ -88,6 +89,54 @@ public class QuestionnaireController {
                 httpResponseEntity.setCode("0");
                 httpResponseEntity.setData(0);
                 httpResponseEntity.setMessage("创建失败");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return httpResponseEntity;
+    }
+
+    /**
+     * 编辑问卷内容
+     */
+    @RequestMapping(value = "/modifyQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity modifyQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try{
+            int result = questionnaireService.modifyQuestionnaire(questionnaireEntity);
+            if(result != 0){
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(result);
+                httpResponseEntity.setMessage("编辑成功");
+            }else{
+                httpResponseEntity.setCode("0");
+                httpResponseEntity.setData(0);
+                httpResponseEntity.setMessage("编辑失败");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return httpResponseEntity;
+    }
+
+    /**
+     * 根据问卷ID发布问卷
+     */
+    @RequestMapping(value = "/publicQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity publicQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try{
+            int result = questionnaireService.publicQuestionnaire(questionnaireEntity);
+            if(result != 0){
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(result);
+                httpResponseEntity.setMessage("发布成功");
+            }else{
+                httpResponseEntity.setCode("0");
+                httpResponseEntity.setData(0);
+                httpResponseEntity.setMessage("发布失败");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

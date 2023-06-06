@@ -29,6 +29,24 @@ const fetchProjectInfo = (id) => {
   })
 }
 
+const handlePublic = (id) => {
+  let params = {
+    id,
+    releaseDate: Date.now()
+  }
+  $.ajax({
+    url: API_BASE_URL + '/questionnaire/publicQuestionnaire',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      alert('发布问卷成功！');
+      location.reload();
+    }
+  })
+}
+
 const fetchQuestionnaireList = (id) => {
   let params = {
     projectId: id
@@ -49,7 +67,7 @@ const fetchQuestionnaireList = (id) => {
             <td>${item.questionnaireName || '未发布'}</td>
             <td>${item.releaseDate || '未发布'}</td>
             <td>
-              <button type="button" class="btn btn-link">发布</button>
+              <button type="button" class="btn btn-link" onclick="handlePublic('${item.id}')">发布</button>
               <button type="button" class="btn btn-link">关闭</button>
               <button type="button" class="btn btn-link btn-red">链接</button>
               <button type="button" class="btn btn-link btn-red">统计</button>
