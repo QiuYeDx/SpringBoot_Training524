@@ -42,7 +42,7 @@ const createQuestionnaire = () => {
     createdBy: $util.getItem('userInfo')[0].username,
     lastUpdatedBy: $util.getItem('userInfo')[0].username,
     questionnaireType: $util.getItem('pageParams').questionnaireType,
-    isActive: 'true',
+    isActive: 'false',
     startDate: start_time,
     endDate: end_time,
   }
@@ -50,6 +50,7 @@ const createQuestionnaire = () => {
   if (!params.questionnaireDescription) return alert('问卷描述不能为空！')
   if (!params.startDate) return alert('开始时间不能为空！')
   if (!params.endDate) return alert('结束时间不能为空！')
+  if (params.startDate > params.endDate) return alert('结束时间不能早于开始时间！')
   $.ajax({
     url: API_BASE_URL + '/questionnaire/createQuestionnaire',
     type: "POST",

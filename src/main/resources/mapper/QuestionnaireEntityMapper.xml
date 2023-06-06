@@ -58,7 +58,7 @@
 
     <update id="publicQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
         update questionnaire_info
-        set release_date = #{releaseDate,jdbcType=TIMESTAMP}
+        set release_date = #{releaseDate,jdbcType=TIMESTAMP}, is_active = 'true'
         where id = #{id,jdbcType=VARCHAR}
     </update>
 

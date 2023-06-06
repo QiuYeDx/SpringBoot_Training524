@@ -116,7 +116,7 @@ const searchProject = () => {
                       </div>
                       <div class="list-footer">
                         <div class="questionnaire-list">
-                          <div class="no-questionnaire">暂无调查问卷或问卷已过期</div>
+                          <div class="no-questionnaire">暂无已发布的调查问卷 或 问卷已过期/已关闭</div>
                         </div>
                       </div>
                     </div>
@@ -219,7 +219,7 @@ const fetchProjectList = () => {
                       </div>
                       <div class="list-footer">
                         <div class="questionnaire-list">
-                          <div class="no-questionnaire">暂无调查问卷或问卷已过期</div>
+                          <div class="no-questionnaire">暂无已发布的调查问卷 或 问卷已过期/已关闭</div>
                         </div>
                       </div>
                     </div>

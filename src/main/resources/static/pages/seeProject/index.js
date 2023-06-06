@@ -30,19 +30,42 @@ const fetchProjectInfo = (id) => {
 }
 
 const handlePublic = (id) => {
-  let params = {
-    id,
-    releaseDate: Date.now()
+  let date_now = Date.now()
+  let l, r;
+  let _params = {
+    id
   }
   $.ajax({
-    url: API_BASE_URL + '/questionnaire/publicQuestionnaire',
+    url: API_BASE_URL + '/questionnaire/queryQuestionnaire',
     type: "POST",
-    data: JSON.stringify(params),
+    data: JSON.stringify(_params),
     dataType: "json",
     contentType: "application/json",
     success(res) {
-      alert('发布问卷成功！');
-      location.reload();
+      l = new Date(res.data.startDate);
+      r = new Date(res.data.endDate);
+      if(res.data.releaseDate != null)
+        return alert('【发布失败】不能重复发布！');
+      console.log(l.getTime(), r.getTime(), date_now);
+      if(date_now > l.getTime() && date_now < r.getTime()){
+        let params = {
+          id,
+          releaseDate: date_now
+        }
+        $.ajax({
+          url: API_BASE_URL + '/questionnaire/publicQuestionnaire',
+          type: "POST",
+          data: JSON.stringify(params),
+          dataType: "json",
+          contentType: "application/json",
+          success(res) {
+            alert('发布问卷成功！');
+            location.reload();
+          }
+        })
+      }else{
+        return alert('【发布失败】当前时间未在「开始时间 ~ 结束时间」区间内！');
+      }
     }
   })
 }
