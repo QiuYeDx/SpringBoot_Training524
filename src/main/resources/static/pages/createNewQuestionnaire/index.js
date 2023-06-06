@@ -39,11 +39,13 @@ const createQuestionnaire = () => {
     projectId: $util.getItem('pageParams').projectId,
     questionnaireName: $('#surveyName').val(),
     questionnaireDescription: $('#surveyDescription').val(),
+    createdBy: $util.getItem('userInfo')[0].username,
+    lastUpdatedBy: $util.getItem('userInfo')[0].username,
+    questionnaireType: $util.getItem('pageParams').questionnaireType,
+    isActive: 'true',
     startDate: start_time,
     endDate: end_time,
   }
-  console.log($('#startTime').val());
-  console.log(params.startDate, params.endDate);
   if (!params.questionnaireName) return alert('问卷名称不能为空！')
   if (!params.questionnaireDescription) return alert('问卷描述不能为空！')
   if (!params.startDate) return alert('开始时间不能为空！')

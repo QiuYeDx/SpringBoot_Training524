@@ -14,11 +14,13 @@
         <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
         <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
         <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate" />
+        <result column="questionnaire_type" jdbcType="VARCHAR" property="questionnaireType" />
+        <result column="is_active" jdbcType="VARCHAR" property="isActive" />
     </resultMap>
 
     <sql id="Base_Column_List">
         id, project_id, questionnaire_name, questionnaire_description, questionnaire_content, created_by, creation_date,
-    last_updated_by, last_update_date, start_date, end_date, release_date
+    last_updated_by, last_update_date, start_date, end_date, release_date, questionnaire_type, is_active
     </sql>
 
     <!--根据项目ID查询问卷列表-->
@@ -40,10 +42,10 @@
     <insert id="createQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
         insert into questionnaire_info (id, project_id, questionnaire_name, questionnaire_description, questionnaire_content,
                                   created_by, creation_date,
-                                  last_updated_by, last_update_date, start_date, end_date, release_date)
+                                  last_updated_by, last_update_date, start_date, end_date, release_date, questionnaire_type, is_active)
         values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{questionnaireName,jdbcType=VARCHAR}, #{questionnaireDescription,jdbcType=VARCHAR}, #{questionnaireContent,jdbcType=VARCHAR},
                 #{createdBy,jdbcType=VARCHAR}, DEFAULT,
-                #{lastUpdatedBy,jdbcType=VARCHAR}, DEFAULT, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{releaseDate,jdbcType=TIMESTAMP})
+                #{lastUpdatedBy,jdbcType=VARCHAR}, DEFAULT, #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{releaseDate,jdbcType=TIMESTAMP}, #{questionnaireType,jdbcType=VARCHAR}, #{isActive,jdbcType=VARCHAR})
     </insert>
 
     <!--根据项目ID查询问卷列表 && 未到期的-->
@@ -51,7 +53,7 @@
         SELECT
             *
         FROM questionnaire_info
-        WHERE project_id = #{projectId,jdbcType=VARCHAR} AND end_date > CURRENT_DATE
+        WHERE project_id = #{projectId,jdbcType=VARCHAR} AND end_date > CURRENT_DATE AND is_active = 'true'
     </select>
 
 <!--    <delete id="deleteQuestionnaireById" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->

@@ -2,8 +2,10 @@ package com.example.training524;
 
 import com.example.training524.common.utils.UUIDUtil;
 import com.example.training524.dao.ProjectEntityMapper;
+import com.example.training524.dao.QuestionnaireEntityMapper;
 import com.example.training524.dao.UserEntityMapper;
 import com.example.training524.dao.entity.ProjectEntity;
+import com.example.training524.dao.entity.QuestionnaireEntity;
 import com.example.training524.dao.entity.UserEntity;
 import com.example.training524.service.UserService;
 import org.apache.ibatis.io.Resources;
@@ -159,7 +161,7 @@ class DemoApplicationTests {
         }
     }
 
-    @Test
+//    @Test
     public void queryProjectList() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -179,7 +181,7 @@ class DemoApplicationTests {
             log.info(">>queryProjectList项目列表查询测试成功");
         }
     }
-    @Test
+//    @Test
     public void insertProject() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -202,7 +204,7 @@ class DemoApplicationTests {
             log.info(">>insert项目插入测试成功");
         }
     }
-    @Test
+//    @Test
     public void deleteProjectById() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -222,7 +224,7 @@ class DemoApplicationTests {
             log.info(">>deleteProjectById根据ID删除项目测试成功");
         }
     }
-    @Test
+//    @Test
     public void updateByPrimaryKeySelective_project() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -244,7 +246,7 @@ class DemoApplicationTests {
             log.info(">>修改项目信息测试成功");
         }
     }
-    @Test
+//    @Test
     public void selectProjectInfo() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -265,7 +267,7 @@ class DemoApplicationTests {
             log.info(">>selectProjectInfo根据项目名称和创建人获取项目测试成功");
         }
     }
-    @Test
+//    @Test
     public void selectProjectInfoById() throws Exception {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
@@ -283,6 +285,93 @@ class DemoApplicationTests {
             System.out.println(list);
             // 记录info级别的信息
             log.info(">>selectProjectInfoById根据项目ID获取项目测试成功");
+        }
+    }
+
+    @Test
+    public void queryQuestionnaire() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setId("80e5d114d1e14905b9d90b5999b896c0");
+        QuestionnaireEntity entity = questionnaireEntityMapper.queryQuestionnaire(questionnaireEntity);
+        if(entity == null){
+            // 记录error级别的信息
+        }else{
+            System.out.println(entity);
+            // 记录info级别的信息
+            log.info(">>queryQuestionnaire问卷查询测试成功");
+        }
+    }
+
+    @Test
+    public void queryQuestionnaireList() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setProjectId("8c3942a60c0b46648ba3c2b17a0df08b");
+        List<QuestionnaireEntity> list = questionnaireEntityMapper.queryQuestionnaireList(questionnaireEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>queryQuestionnaireList问卷列表查询测试成功");
+        }
+    }
+
+    @Test
+    public void queryQuestionnaireListNow() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setProjectId("8c3942a60c0b46648ba3c2b17a0df08b");
+        List<QuestionnaireEntity> list = questionnaireEntityMapper.queryQuestionnaireListNow(questionnaireEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>queryQuestionnaireListNow问卷列表查询测试成功");
+        }
+    }
+
+    @Test
+    public void createQuestionnaire() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建QuestionnaireMapper对象，mybatis自动生成mapper代理对象
+        QuestionnaireEntityMapper questionnaireEntityMapper = sqlSession.getMapper(QuestionnaireEntityMapper.class);
+        //调用questionnaireMapper的方法
+        QuestionnaireEntity questionnaireEntity = new QuestionnaireEntity();
+        questionnaireEntity.setId(UUIDUtil.getOneUUID());
+        questionnaireEntity.setQuestionnaireName("新问卷标题");
+        questionnaireEntity.setQuestionnaireContent("新问卷描述");
+        questionnaireEntity.setCreatedBy("Test");
+        int i = questionnaireEntityMapper.createQuestionnaire(questionnaireEntity);
+        if(i==0){
+            // 记录error级别的信息
+        }else{
+            System.out.println(i);
+            // 记录info级别的信息
+            log.info(">>createQuestionnaire创建问卷测试成功");
         }
     }
 }

@@ -2,6 +2,21 @@ onload = () => {
   $('#headerUsername').text($util.getItem('userInfo')[0].username)
   $('#headerDivB').text('创建问卷')
   $('#option_project_name').text($util.getItem('pageParams').projectName)
+  const selectElement = document.getElementById('selectLeo2');
+
+  selectElement.addEventListener('change', (event) => {
+    let selectedValue = event.target.value;
+    switch(selectedValue){
+      case '1': selectedValue = '学生';
+              break;
+      case '2': selectedValue = '老师';
+              break;
+      default: break;
+    }
+    console.log('Selected value:', selectedValue);
+    $util.setPageParam('questionnaireType', selectedValue);
+  });
+
 }
 
 const onCreateTemplate = () => {

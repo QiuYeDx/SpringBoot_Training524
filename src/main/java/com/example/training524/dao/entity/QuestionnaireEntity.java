@@ -21,6 +21,24 @@ public class QuestionnaireEntity {
     private Date startDate;
     private Date endDate;
     private Date releaseDate;
+    private String questionnaireType;
+    private String isActive;
+
+    public String getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(String isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getQuestionnaireType() {
+        return questionnaireType;
+    }
+
+    public void setQuestionnaireType(String questionnaireType) {
+        this.questionnaireType = questionnaireType;
+    }
 
     public String getId() {
         return id;
@@ -133,6 +151,8 @@ public class QuestionnaireEntity {
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", releaseDate=" + releaseDate +
+                ", questionnaireType='" + questionnaireType + '\'' +
+                ", isActive='" + isActive + '\'' +
                 '}';
     }
 }

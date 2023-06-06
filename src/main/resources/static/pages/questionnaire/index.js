@@ -61,8 +61,8 @@ const searchProject = () => {
           dataType: "json",
           contentType: "application/json",
           success(r) {
-            questionnaireList = r.data.length !== 0 ? r.data : [];
-            if(r){
+            questionnaireList = r.data ? (r.data.length !== 0 ? r.data : []) : [];
+            if(r.data){
               if(questionnaireList !== [])
                 qSet.push(item.id);
               $('#content').append(`
@@ -162,11 +162,11 @@ const fetchProjectList = () => {
           dataType: "json",
           contentType: "application/json",
           success(r) {
-            questionnaireList = r.data.length !== 0 ? r.data : [];
-            if(r){
-              if(questionnaireList !== [])
+            questionnaireList = r.data ? (r.data.length !== 0 ? r.data : []) : [];
+            if(r.data){
+              if(questionnaireList !== []){
                 qSet.push(item.id);
-              $('#content').append(`
+                $('#content').append(`
               <div class="list">
                 <div class="list-header">
                   <div>${item.projectName}</div>
@@ -180,16 +180,18 @@ const fetchProjectList = () => {
                 <div class="list-footer">
                   <div class="questionnaire-list">
                     ${questionnaireList.map((v) => {
-                return `<div class="questionnaire">
+                  return `<div class="questionnaire">
                         <h3 class="questionnaire-title">${'问卷标题：' + v.questionnaireName || '问卷标题'}</h3>
                         <p class="questionnaire-description">${'问卷描述：' + v.questionnaireDescription || '问卷描述'}</p>
                         <div class="gap"></div>
                       </div>`
-              }).join('')}
+                }).join('')}
                   </div>
                 </div>
               </div>
             `);
+              }
+
             }
 
 
