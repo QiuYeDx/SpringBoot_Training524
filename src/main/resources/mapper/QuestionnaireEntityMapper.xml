@@ -64,7 +64,15 @@
 
     <update id="modifyQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
         update questionnaire_info
-        set questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR}
+        set questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR},
+            questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},
+            questionnaire_description = #{questionnaireDescription,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="closeQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
+        update questionnaire_info
+        set is_active = 'false'
         where id = #{id,jdbcType=VARCHAR}
     </update>
 

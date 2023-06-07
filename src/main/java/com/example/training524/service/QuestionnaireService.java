@@ -72,6 +72,14 @@ public class QuestionnaireService {
         return questionnaireResult;
     }
 
+    /**
+     * 根据问卷ID关闭问卷
+     */
+    public int closeQuestionnaire(QuestionnaireEntity questionnaireEntity){
+        int result = questionnaireEntityMapper.closeQuestionnaire(questionnaireEntity);
+        return result;
+    }
+
 //    /**
 //     * 根据ID删除项目信息
 //     */

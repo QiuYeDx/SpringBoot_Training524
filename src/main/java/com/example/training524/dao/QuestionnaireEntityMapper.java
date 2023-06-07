@@ -46,6 +46,11 @@ public interface QuestionnaireEntityMapper {
     int publicQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
+     * 关闭问卷
+     */
+    int closeQuestionnaire(QuestionnaireEntity projectEntity);
+
+    /**
      * 分享问卷链接
      */
     int shareQuestionnaire(QuestionnaireEntity projectEntity);

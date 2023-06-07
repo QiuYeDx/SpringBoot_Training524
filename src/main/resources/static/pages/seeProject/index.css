@@ -1,17 +1,18 @@
 body {
-  background-color: #EBF0F4 !important;
+  background-color: #EBF0F4;
 }
 
 .container {
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 40px !important;
+  padding: 40px;
 }
 
 .info {
   color: #30A5F5;
   font-size: 17px;
   margin-bottom: 30px;
+  font-weight: bold; /* 添加粗体字体样式 */
 }
 
 .info > span {
@@ -21,4 +22,29 @@ body {
 .table th,
 .table td {
   text-align: center;
+  padding: 10px; /* 统一设置表头和单元格的内边距 */
+}
+
+.btn.btn-link.disabled.no {
+  color: #dcdcdc;
+  cursor: not-allowed; /* 添加禁用状态的鼠标样式 */
+}
+
+/* 优化样式 */
+body, .container {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.btn.btn-link.disabled.no {
+  cursor: not-allowed;
 }

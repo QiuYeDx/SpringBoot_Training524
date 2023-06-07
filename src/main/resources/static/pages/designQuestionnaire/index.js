@@ -2,6 +2,29 @@ let questionnaireTitle = '问卷标题'
 let questionnaireDescription = '问卷说明'
 const problem = []
 
+onload = () => {
+  problem.questionnaireTitle = questionnaireTitle;
+  problem.questionnaireDescription = questionnaireDescription;
+  let params = {
+    id: $util.getItem('pageParams').questionnaireId
+  }
+  $.ajax({
+    url: API_BASE_URL + '/questionnaire/queryQuestionnaire',
+    type: "POST",
+    data: JSON.stringify(params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      questionnaireTitle = res.data.questionnaireName;
+      questionnaireDescription = res.data.questionnaireDescription;
+      problem.questionnaireTitle = res.data.questionnaireName;
+      problem.questionnaireDescription = res.data.questionnaireDescription;
+      $('#questionnaire-title-span').text(questionnaireTitle);
+      $('#questionnaire-description-span').text(questionnaireDescription);
+    }
+  })
+};
+
 /**
  * 添加问题
  * 
@@ -219,7 +242,7 @@ const singleChoiceEditFinish = (problemIndex) => {
     $(`#question${problemIndex} .bottom2`).append(`
       <div style="display: flex; align-items: center;">
         <label class="radio-inline">
-          <input type="radio">${item.chooseTerm ? item.chooseTerm : ''}
+          <input type="radio" name="radio${problemIndex}">${item.chooseTerm ? item.chooseTerm : ''}
         </label>
       </div>
     `)
@@ -502,6 +525,8 @@ const handleEditFinish = () => {
   let contentJsonString = encodeURIComponent(JSON.stringify(problem));
   let params = {
     id: $util.getItem('pageParams').questionnaireId,
+    questionnaireName: problem.questionnaireTitle,
+    questionnaireDescription: problem.questionnaireDescription,
     questionnaireContent: contentJsonString
   }
   $.ajax({
@@ -520,5 +545,8 @@ const handleEditFinish = () => {
 
 const onPreview = () => {
   $util.setItem('problemList', problem);
+  $util.setItem('name', problem.questionnaireTitle);
+  $util.setItem('desc', problem.questionnaireDescription);
+  $util.setItem('isPreview', 'true');
   location.href = '/pages/answerSheet/index.html';
 }

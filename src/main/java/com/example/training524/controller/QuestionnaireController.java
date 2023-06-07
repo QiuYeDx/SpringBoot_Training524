@@ -146,6 +146,30 @@ public class QuestionnaireController {
     }
 
     /**
+     * 根据问卷ID关闭问卷
+     */
+    @RequestMapping(value = "/closeQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity closeQuestionnaire(@RequestBody QuestionnaireEntity questionnaireEntity){
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try{
+            int result = questionnaireService.closeQuestionnaire(questionnaireEntity);
+            if(result != 0){
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(result);
+                httpResponseEntity.setMessage("关闭成功");
+            }else{
+                httpResponseEntity.setCode("0");
+                httpResponseEntity.setData(0);
+                httpResponseEntity.setMessage("关闭失败");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return httpResponseEntity;
+    }
+
+    /**
      * 根据项目ID查询问卷列表 && 未到期的
      */
     @RequestMapping(value = "/queryQuestionnaireListNow", method = RequestMethod.POST, headers = "Accept=application/json")

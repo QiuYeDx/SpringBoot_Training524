@@ -74,6 +74,34 @@
   display: flex;
 }
 
-.template-b > .template-item:not(last-child) {
-  margin-left: 30px;
+.template-b > .template-item:not(:last-child) {
+  margin-right: 30px;
+}
+
+/* 优化样式 */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #EBF0F4;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 750px;
+  }
+}
+
+@media (max-width: 750px) {
+  .container {
+    max-width: 100%;
+    padding: 10px;
+  }
 }

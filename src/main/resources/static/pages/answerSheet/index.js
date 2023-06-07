@@ -1,6 +1,50 @@
+let isPreview;
+let problem;
+let name;
+let desc;
+
+const handleSubmit = () => {
+    if(isPreview){
+        let contentJsonString = encodeURIComponent(JSON.stringify(problem));
+        let params = {
+            id: $util.getItem('pageParams').questionnaireId,
+            questionnaireName: name,
+            questionnaireDescription: desc,
+            questionnaireContent: contentJsonString
+        }
+        $.ajax({
+            url: API_BASE_URL + '/questionnaire/modifyQuestionnaire',
+            type: "POST",
+            data: JSON.stringify(params),
+            dataType: "json",
+            contentType: "application/json",
+            success(res) {
+                // console.log(res)
+                // $util.clearItem('name');
+                // $util.clearItem('desc');
+                // $util.clearItem('isPreview');
+                // $util.clearItem('problemList');
+                alert('编辑成功！')
+                location.href = "/pages/questionnaire/index.html"
+            }
+        })
+    }
+}
+
 onload = () => {
-  const problem = $util.getItem('problemList');
-  console.log(problem);
+    problem = $util.getItem('problemList');
+   name = $util.getItem('name');
+   desc = $util.getItem('desc');
+  isPreview = $util.getItem('isPreview');
+  console.log(isPreview);
+  if(isPreview){
+      console.log('!');
+      $('#btn-primary-submit').text('完成编辑');
+  }
+  // console.log(problem);
+  // console.log(name, desc);
+  $('.questionnaire-title').text(name);
+  $('.questionnaire-description').text(desc);
   problem.map((item, index) => {
     switch(item.type){
       case 1:
@@ -8,12 +52,12 @@ onload = () => {
           <div class="question" id="question1" data-type="1" data-problemIndex="1">
             <div class="top">
               <span class="question-title" id="questionTitle">${index + 1}.${item.problemName}</span>
-              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '选答题'}</span>
+              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '非必答题'}</span>
             </div>
             <div class="bottom">
               ${item.option.map((v, i) => {
                 return `<div style="display: flex; align-items: center; margin-bottom: 3px;">
-                          <label className="radio-inline">
+                          <label class="radio-inline">
                             <input type="radio" name="chooseTerm">${v.chooseTerm}
                           </label>
                         </div>`
@@ -27,7 +71,7 @@ onload = () => {
             <div class="question" id="question1" data-type="1" data-problemIndex="1">
               <div class="top">
                 <span class="question-title" id="questionTitle">${index + 1}.${item.problemName}</span>
-                <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '选答题'}</span>
+                <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '非必答题'}</span>
               </div>
               <div class="bottom">
               
@@ -48,7 +92,7 @@ onload = () => {
           <div class="question" id="question1" data-type="1" data-problemIndex="1">
             <div class="top">
               <span class="question-title" id="questionTitle">${index + 1}.${item.problemName}</span>
-              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '选答题'}</span>
+              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '非必答题'}</span>
             </div>
             <div class="bottom">
               <textarea class="form-control" placeholder="请输入" rows="4" style="width: 70%;"></textarea>
@@ -60,7 +104,7 @@ onload = () => {
           <div class="question" id="question1" data-type="1" data-problemIndex="1">
             <div class="top">
               <span class="question-title" id="questionTitle">${index + 1}.${item.problemName}</span>
-              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '选答题'}</span>
+              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '非必答题'}</span>
             </div>
             <div class="bottom">
               <table class="table">
@@ -92,7 +136,7 @@ onload = () => {
           <div class="question" id="question1" data-type="1" data-problemIndex="1">
             <div class="top">
               <span class="question-title" id="questionTitle">${index + 1}.${item.problemName}</span>
-              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '选答题'}</span>
+              <span class="must-answer" id="mustAnswer">${item.mustAnswer ? '必答题' : '非必答题'}</span>
             </div>
             <div class="bottom" style="display: flex; align-items: center; justify-content: space-between;">
               <div>${item.option[0].chooseTerm}</div>

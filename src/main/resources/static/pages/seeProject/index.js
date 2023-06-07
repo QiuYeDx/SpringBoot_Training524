@@ -70,6 +70,42 @@ const handlePublic = (id) => {
   })
 }
 
+const handleClose = (id) => {
+  let _params = {
+    id
+  }
+  $.ajax({
+    url: API_BASE_URL + '/questionnaire/queryQuestionnaire',
+    type: "POST",
+    data: JSON.stringify(_params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      if(res.data.releaseDate != null && res.data.isActive === 'false')
+        return alert('【关闭失败】问卷已关闭！');
+
+      if(res.data.releaseDate === null && res.data.isActive === 'false')
+        return alert('【关闭失败】尚未发布 无法关闭！');
+
+      let params = {
+          id
+      }
+
+      $.ajax({
+          url: API_BASE_URL + '/questionnaire/closeQuestionnaire',
+          type: "POST",
+          data: JSON.stringify(params),
+          dataType: "json",
+          contentType: "application/json",
+          success(res) {
+            alert('关闭问卷成功！');
+            location.reload();
+          }
+        })
+      }
+  })
+}
+
 const fetchQuestionnaireList = (id) => {
   let params = {
     projectId: id
@@ -87,11 +123,11 @@ const fetchQuestionnaireList = (id) => {
         $('#content').append(`
           <tr>
             <td>${index + 1}</td>
-            <td>${item.questionnaireName || '未发布'}</td>
-            <td>${item.releaseDate || '未发布'}</td>
+            <td>${item.questionnaireName || '无标题'}</td>
+            <td>${item.releaseDate ? (item.isActive === 'true' ? item.releaseDate : '已关闭') : '未发布' }</td>
             <td>
-              <button type="button" class="btn btn-link" onclick="handlePublic('${item.id}')">发布</button>
-              <button type="button" class="btn btn-link">关闭</button>
+              <button type="button" class="btn btn-link ${item.releaseDate ? 'disabled no' : ''}" onclick="handlePublic('${item.id}')">发布</button>
+              <button type="button" class="btn btn-link ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }" onclick="handleClose('${item.id}')">关闭</button>
               <button type="button" class="btn btn-link btn-red">链接</button>
               <button type="button" class="btn btn-link btn-red">统计</button>
             </td>
