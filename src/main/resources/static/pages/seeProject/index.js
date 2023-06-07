@@ -107,6 +107,7 @@ const handleClose = (id) => {
 }
 
 const fetchQuestionnaireList = (id) => {
+  let date_now = Date.now();
   let params = {
     projectId: id
   }
@@ -124,12 +125,12 @@ const fetchQuestionnaireList = (id) => {
           <tr>
             <td>${index + 1}</td>
             <td>${item.questionnaireName || '无标题'}</td>
-            <td>${item.releaseDate ? (item.isActive === 'true' ? $util.getDateFormat(item.releaseDate) : '已关闭') : '未发布' }</td>
+            <td>${new Date(item.endDate).getTime() <= date_now ? '已过期' : (item.releaseDate ? (item.isActive === 'true' ? $util.getDateFormat(item.releaseDate) : '已关闭') : '未发布') }</td>
             <td>
-              <button type="button" class="btn btn-link ${item.releaseDate ? 'disabled no' : ''}" onclick="handlePublic('${item.id}')">发布</button>
-              <button type="button" class="btn btn-link ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }" onclick="handleClose('${item.id}')">关闭</button>
-              <button type="button" class="btn btn-link btn-red ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }">链接</button>
-              <button type="button" class="btn btn-link btn-red ${item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' }">统计</button>
+              <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? 'disabled no' : '')}" onclick="handlePublic('${item.id}')">发布</button>
+              <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}" onclick="handleClose('${item.id}')">关闭</button>
+              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}">链接</button>
+              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? '' : (item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' )}">统计</button>
             </td>
           </tr>
         `)

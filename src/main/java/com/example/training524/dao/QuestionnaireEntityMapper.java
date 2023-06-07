@@ -36,11 +36,6 @@ public interface QuestionnaireEntityMapper {
     int modifyQuestionnaire(QuestionnaireEntity projectEntity);
 
     /**
-     * 回答问卷
-     */
-    int answerQuestionnaire(QuestionnaireEntity projectEntity);
-
-    /**
      * 发布问卷
      */
     int publicQuestionnaire(QuestionnaireEntity projectEntity);

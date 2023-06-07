@@ -1,6 +1,7 @@
 package com.example.training524.controller;
 
 import com.example.training524.beans.HttpResponseEntity;
+import com.example.training524.dao.entity.AnswerEntity;
 import com.example.training524.dao.entity.QuestionnaireEntity;
 import com.example.training524.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -185,6 +186,30 @@ public class QuestionnaireController {
                 httpResponseEntity.setCode("666");
                 httpResponseEntity.setData(hasQuestionnaire);
                 httpResponseEntity.setMessage("查询成功");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return httpResponseEntity;
+    }
+
+    /**
+     * 根据问卷ID回答问卷
+     */
+    @RequestMapping(value = "/answerQuestionnaire", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity answerQuestionnaire(@RequestBody AnswerEntity answerEntity){
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try{
+            int result = questionnaireService.answerQuestionnaire(answerEntity);
+            if(result != 0){
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(result);
+                httpResponseEntity.setMessage("回答成功");
+            }else{
+                httpResponseEntity.setCode("0");
+                httpResponseEntity.setData(0);
+                httpResponseEntity.setMessage("回答失败");
             }
         }catch(Exception e){
             System.out.println(e.getMessage());

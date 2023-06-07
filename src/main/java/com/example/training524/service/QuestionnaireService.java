@@ -1,7 +1,9 @@
 package com.example.training524.service;
 
 import com.example.training524.common.utils.UUIDUtil;
+import com.example.training524.dao.AnswerEntityMapper;
 import com.example.training524.dao.QuestionnaireEntityMapper;
+import com.example.training524.dao.entity.AnswerEntity;
 import com.example.training524.dao.entity.QuestionnaireEntity;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +21,20 @@ import java.util.Map;
 public class QuestionnaireService {
     @Autowired
     private QuestionnaireEntityMapper questionnaireEntityMapper;
+    private AnswerEntityMapper answerEntityMapper;
 
     /**
      * 根据项目ID查询问卷列表
      */
     public List<QuestionnaireEntity> queryQuestionnaireList(QuestionnaireEntity questionnaireEntity){
-        List<QuestionnaireEntity> result = questionnaireEntityMapper.queryQuestionnaireList(questionnaireEntity);
-        return result;
+        return questionnaireEntityMapper.queryQuestionnaireList(questionnaireEntity);
     }
 
     /**
      * 根据项目ID查询项目
      */
     public QuestionnaireEntity queryQuestionnaire(QuestionnaireEntity questionnaireEntity){
-        QuestionnaireEntity result = questionnaireEntityMapper.queryQuestionnaire(questionnaireEntity);
-        return result;
+        return questionnaireEntityMapper.queryQuestionnaire(questionnaireEntity);
     }
 
     /**
@@ -53,31 +54,32 @@ public class QuestionnaireService {
      * 根据项目ID查询问卷列表 && 未到期的
      */
     public List<QuestionnaireEntity> queryQuestionnaireListNow(QuestionnaireEntity questionnaireEntity){
-        List<QuestionnaireEntity> result = questionnaireEntityMapper.queryQuestionnaireListNow(questionnaireEntity);
-        return result;
+        return questionnaireEntityMapper.queryQuestionnaireListNow(questionnaireEntity);
     }
 
     /**
      * 根据问卷ID发布问卷
      */
     public int publicQuestionnaire(QuestionnaireEntity questionnaireEntity){
-        int result = questionnaireEntityMapper.publicQuestionnaire(questionnaireEntity);
-        return result;
+        return questionnaireEntityMapper.publicQuestionnaire(questionnaireEntity);
     }
     /**
      * 修改项目信息
      */
     public int modifyQuestionnaire(QuestionnaireEntity questionnaireEntity){
-        int questionnaireResult = questionnaireEntityMapper.modifyQuestionnaire(questionnaireEntity);
-        return questionnaireResult;
+        return questionnaireEntityMapper.modifyQuestionnaire(questionnaireEntity);
     }
 
     /**
      * 根据问卷ID关闭问卷
      */
     public int closeQuestionnaire(QuestionnaireEntity questionnaireEntity){
-        int result = questionnaireEntityMapper.closeQuestionnaire(questionnaireEntity);
-        return result;
+        return questionnaireEntityMapper.closeQuestionnaire(questionnaireEntity);
+    }
+
+    public int answerQuestionnaire(AnswerEntity answerEntity){
+        answerEntity.setId(UUIDUtil.getOneUUID());
+        return answerEntityMapper.answerQuestionnaire(answerEntity);
     }
 
 //    /**

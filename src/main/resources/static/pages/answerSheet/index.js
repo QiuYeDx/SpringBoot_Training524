@@ -2,6 +2,7 @@ let isPreview;
 let problem;
 let name;
 let desc;
+let answer;
 
 const handleSubmit = () => {
     if(isPreview){
@@ -19,30 +20,25 @@ const handleSubmit = () => {
             dataType: "json",
             contentType: "application/json",
             success(res) {
-                // console.log(res)
-                // $util.clearItem('name');
-                // $util.clearItem('desc');
-                // $util.clearItem('isPreview');
-                // $util.clearItem('problemList');
                 alert('编辑成功！')
                 location.href = "/pages/questionnaire/index.html"
             }
         })
+    }else{
+
     }
 }
 
 onload = () => {
     problem = $util.getItem('problemList');
-   name = $util.getItem('name');
-   desc = $util.getItem('desc');
-  isPreview = $util.getItem('isPreview');
-  console.log(isPreview);
-  if(isPreview){
-      console.log('!');
-      $('#btn-primary-submit').text('完成编辑');
-  }
-  // console.log(problem);
-  // console.log(name, desc);
+    name = $util.getItem('name');
+    desc = $util.getItem('desc');
+    isPreview = $util.getItem('isPreview');
+    console.log(isPreview);
+    if(isPreview){
+        $('#btn-primary-submit').text('完成编辑');
+    }
+
   $('.questionnaire-title').text(name);
   $('.questionnaire-description').text(desc);
   problem.map((item, index) => {

@@ -1,6 +1,6 @@
 package com.example.training524.dao;
 
-import com.example.training524.dao.entity.ProjectEntity;
+import com.example.training524.dao.entity.AnswerEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -17,32 +17,7 @@ import java.util.Map;
 @Component
 public interface AnswerEntityMapper {
     /**
-     * 查询项目[信息]列表
+     * 回答问卷
      */
-    List<ProjectEntity> queryProjectList(ProjectEntity projectEntity);
-
-    /**
-     * 创建项目的基本信息
-     */
-    int insert(ProjectEntity projectEntity);
-
-    /**
-     * 根据ID删除项目信息
-     */
-    int deleteProjectById(ProjectEntity projectEntity);
-
-    /**
-     * 编辑项目信息
-     */
-    int updateByPrimaryKeySelective(ProjectEntity projectEntity);
-
-    /**
-     * 根据项目名称查询项目
-     */
-    List<ProjectEntity> selectProjectInfo(ProjectEntity projectEntity);
-
-    /**
-     * 根据项目ID查询项目
-     */
-    List<ProjectEntity> selectProjectInfoById(ProjectEntity projectEntity);
+    int answerQuestionnaire(AnswerEntity answerEntity);
 }
