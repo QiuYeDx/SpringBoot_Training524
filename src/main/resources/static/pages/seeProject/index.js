@@ -6,6 +6,64 @@ onload = () => {
   console.log(projectId, 'projectId')
   fetchProjectInfo(projectId)
   fetchQuestionnaireList(projectId)
+  document.querySelector('#content').addEventListener('click', function(event) {
+    let target = event.target;
+    let popup = document.createElement('div');
+      popup.className = 'popup';
+      // 检查点击的元素是否为 "链接" 按钮或其子元素
+      if (target.matches('.btn-link') && target.textContent === "链接") {
+        // 获取问卷的唯一标识
+        let questionnaireId = target.dataset.index;
+
+        // 执行针对该问卷的操作
+        // 显示悬浮框
+        popup.style.display = 'block';
+
+        // 要显示的字符串
+        let textToCopy = API_BASE_URL + '/answerSheet/' + questionnaireId;
+
+        // 在悬浮框中显示字符串
+        let popupText = document.createElement('div');
+        popupText.className = 'popup-text';
+        popupText.textContent = textToCopy;
+        popup.appendChild(popupText);
+
+        let btn_wrapper = document.createElement('div');
+        btn_wrapper.className = "btn-container";
+        popup.appendChild(btn_wrapper);
+
+        // 复制按钮
+        let copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = '复制';
+        btn_wrapper.appendChild(copyBtn);
+
+        // 关闭按钮
+        let closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.textContent = '关闭';
+        btn_wrapper.appendChild(closeBtn);
+
+        closeBtn.addEventListener('click', function() {
+          popup.parentNode.removeChild(popup);
+        });
+
+        // 复制按钮点击事件处理程序
+        copyBtn.addEventListener('click', function() {
+          // 复制字符串到剪贴板
+          let textarea = document.createElement('textarea');
+          textarea.value = textToCopy;
+          popup.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          popup.removeChild(textarea);
+          alert('已复制到剪贴板');
+          popup.parentNode.removeChild(popup);
+        });
+        // 将悬浮框添加到文档中
+        document.body.appendChild(popup);
+      }
+  })
 }
 
 const fetchProjectInfo = (id) => {
@@ -129,7 +187,7 @@ const fetchQuestionnaireList = (id) => {
             <td>
               <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? 'disabled no' : '')}" onclick="handlePublic('${item.id}')">发布</button>
               <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}" onclick="handleClose('${item.id}')">关闭</button>
-              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}">链接</button>
+              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}" data-index="${item.id}">链接</button>
               <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? '' : (item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' )}">统计</button>
             </td>
           </tr>

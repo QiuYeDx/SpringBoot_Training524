@@ -21,6 +21,7 @@ import java.util.Map;
 public class QuestionnaireService {
     @Autowired
     private QuestionnaireEntityMapper questionnaireEntityMapper;
+    @Autowired
     private AnswerEntityMapper answerEntityMapper;
 
     /**
@@ -81,13 +82,5 @@ public class QuestionnaireService {
         answerEntity.setId(UUIDUtil.getOneUUID());
         return answerEntityMapper.answerQuestionnaire(answerEntity);
     }
-
-//    /**
-//     * 根据ID删除项目信息
-//     */
-//    public int deleteQuestionnaireById(QuestionnaireEntity questionnaireEntity){
-//        int questionnaireResult = questionnaireEntityMapper.deleteQuestionnaireById(questionnaireEntity);
-//        return questionnaireResult;
-//    }
 
 }

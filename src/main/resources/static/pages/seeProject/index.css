@@ -52,3 +52,51 @@ body, .container {
 td{
   vertical-align: middle !important;
 }
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(240, 240, 240, 0.9); /* 半透明背景颜色 */
+  border: 1px solid #ccc;
+  border-radius: 10px; /* 圆角 */
+  padding: 10px;
+  z-index: 9999;
+  backdrop-filter: blur(5px); /* 模糊玻璃效果 */
+  display: none;
+  text-align: center; /* 水平居中 */
+
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.popup-text {
+  margin-bottom: 10px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+}
+
+.copy-btn,
+.close-btn {
+  margin: 0 5px; /* 按钮间距 */
+  display: block;
+  width: 100px; /* 按钮宽度 */
+  background-color: #ccc; /* 另一个按钮的背景颜色 */
+  border: none;
+  border-radius: 5px; /* 圆角 */
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.close-btn {
+  background-color: #ccc; /* 另一个按钮的背景颜色 */
+}
+
+.copy-btn:hover,
+.close-btn:hover {
+  background-color: #ddd; /* 鼠标悬停时的背景颜色 */
+}

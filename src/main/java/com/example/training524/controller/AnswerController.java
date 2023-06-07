@@ -1,8 +1,5 @@
 package com.example.training524.controller;
 
-import com.example.training524.beans.HttpResponseEntity;
-import com.example.training524.dao.entity.AnswerEntity;
-import com.example.training524.dao.entity.QuestionnaireEntity;
 import com.example.training524.service.QuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
