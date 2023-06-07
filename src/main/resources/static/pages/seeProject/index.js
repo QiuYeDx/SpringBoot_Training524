@@ -128,8 +128,8 @@ const fetchQuestionnaireList = (id) => {
             <td>
               <button type="button" class="btn btn-link ${item.releaseDate ? 'disabled no' : ''}" onclick="handlePublic('${item.id}')">发布</button>
               <button type="button" class="btn btn-link ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }" onclick="handleClose('${item.id}')">关闭</button>
-              <button type="button" class="btn btn-link btn-red">链接</button>
-              <button type="button" class="btn btn-link btn-red">统计</button>
+              <button type="button" class="btn btn-link btn-red ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }">链接</button>
+              <button type="button" class="btn btn-link btn-red ${item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' }">统计</button>
             </td>
           </tr>
         `)

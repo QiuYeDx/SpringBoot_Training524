@@ -48,3 +48,7 @@ body, .container {
 .btn.btn-link.disabled.no {
   cursor: not-allowed;
 }
+
+td{
+  vertical-align: middle !important;
+}
