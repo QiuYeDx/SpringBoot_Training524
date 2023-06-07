@@ -20,6 +20,10 @@ const handleSubmit = () => {
             dataType: "json",
             contentType: "application/json",
             success(res) {
+                localStorage.removeItem("problemList");
+                localStorage.removeItem("name");
+                localStorage.removeItem("desc");
+                localStorage.removeItem("isPreview");
                 alert('编辑成功！')
                 location.href = "/pages/questionnaire/index.html"
             }
@@ -30,18 +34,23 @@ const handleSubmit = () => {
 }
 
 onload = () => {
+    // 获取URL中的查询参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionnaireId = urlParams.get('id');
+    console.log(questionnaireId);
+
     problem = $util.getItem('problemList');
     name = $util.getItem('name');
     desc = $util.getItem('desc');
     isPreview = $util.getItem('isPreview');
-    console.log(isPreview);
+    // console.log(isPreview);
     if(isPreview){
         $('#btn-primary-submit').text('完成编辑');
     }
 
   $('.questionnaire-title').text(name);
   $('.questionnaire-description').text(desc);
-  problem.map((item, index) => {
+  problem && problem.map((item, index) => {
     switch(item.type){
       case 1:
         $('#problem').append(`
