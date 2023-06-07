@@ -23,7 +23,7 @@ const fetchProjectInfo = (id) => {
       console.log(info, 'res')
       $('#projectName').text(info.projectName)
       $('#personInCharge').text(info.createdBy)
-      $('#createTime').text(info.creationDate)
+      $('#createTime').text($util.getDateFormat(info.creationDate))
       $('#projectDescription').text(info.projectContent)
     }
   })
@@ -124,7 +124,7 @@ const fetchQuestionnaireList = (id) => {
           <tr>
             <td>${index + 1}</td>
             <td>${item.questionnaireName || '无标题'}</td>
-            <td>${item.releaseDate ? (item.isActive === 'true' ? item.releaseDate : '已关闭') : '未发布' }</td>
+            <td>${item.releaseDate ? (item.isActive === 'true' ? $util.getDateFormat(item.releaseDate) : '已关闭') : '未发布' }</td>
             <td>
               <button type="button" class="btn btn-link ${item.releaseDate ? 'disabled no' : ''}" onclick="handlePublic('${item.id}')">发布</button>
               <button type="button" class="btn btn-link ${item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' }" onclick="handleClose('${item.id}')">关闭</button>

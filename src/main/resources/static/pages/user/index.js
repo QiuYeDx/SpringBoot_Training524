@@ -29,8 +29,8 @@ const fetchUserList = () => {
             <td>${index + 1}</td>
             <td>${item.username}</td>
             <td>${item.password}</td>
-            <td>${item.startTime}</td>
-            <td>${item.stopTime}</td>
+            <td>${$util.getDateFormat(item.startTime)}</td>
+            <td>${$util.getDateFormat(item.stopTime)}</td>
             <td>
               <button type="button" class="btn btn-link" onclick={handleReset('${json}')}>重置密码</button>
               <button type="button" class="btn btn-link" onclick="handleEdit('${item.id}')">编辑</button>
