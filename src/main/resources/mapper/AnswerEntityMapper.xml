@@ -14,10 +14,10 @@
         id, questionnaire_id, answer_content, answered_by, answer_date, last_answer_date
     </sql>
 
-    <!--根据问卷ID查询回答列表-->
-    <select id="queryAnswerList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.AnswerEntity">
+    <!--根据问卷ID查询回答内容列表-->
+    <select id="queryAnswerContentList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.AnswerEntity">
         SELECT
-            *
+            answer_content
         FROM answer_info
         WHERE questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
     </select>

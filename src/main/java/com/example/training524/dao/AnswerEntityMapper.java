@@ -20,4 +20,9 @@ public interface AnswerEntityMapper {
      * 回答问卷
      */
     int answerQuestionnaire(AnswerEntity answerEntity);
+
+    /**
+     * 根据问卷ID查询回答内容列表
+     */
+    List<AnswerEntity> queryAnswerContentList(AnswerEntity answerEntity);
 }

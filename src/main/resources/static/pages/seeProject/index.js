@@ -164,6 +164,24 @@ const handleClose = (id) => {
   })
 }
 
+const handleStatistic = (id) => {
+  let _params = {
+    id
+  }
+  $.ajax({
+    url: API_BASE_URL + '/questionnaire/queryQuestionnaire',
+    type: "POST",
+    data: JSON.stringify(_params),
+    dataType: "json",
+    contentType: "application/json",
+    success(res) {
+      if(res.data.releaseDate === null && res.data.isActive === 'false')
+        return alert('【统计失败】尚未发布 无法统计！');
+      location.href = API_BASE_URL + "/pages/statistic/index.html?id=" + id;
+    }
+  })
+}
+
 const fetchQuestionnaireList = (id) => {
   let date_now = Date.now();
   let params = {
@@ -188,7 +206,7 @@ const fetchQuestionnaireList = (id) => {
               <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? 'disabled no' : '')}" onclick="handlePublic('${item.id}')">发布</button>
               <button type="button" class="btn btn-link ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}" onclick="handleClose('${item.id}')">关闭</button>
               <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? 'disabled no' : (item.releaseDate ? (item.isActive === 'true' ? '' : 'disabled no') : 'disabled no' )}" data-index="${item.id}">链接</button>
-              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? '' : (item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' )}">统计</button>
+              <button type="button" class="btn btn-link btn-red ${new Date(item.endDate).getTime() <= date_now ? '' : (item.releaseDate ? (item.isActive === 'true' ? '' : '') : 'disabled no' )}" onclick="handleStatistic('${item.id}')">统计</button>
             </td>
           </tr>
         `)

@@ -83,4 +83,7 @@ public class QuestionnaireService {
         return answerEntityMapper.answerQuestionnaire(answerEntity);
     }
 
+    public List<AnswerEntity> queryAnswerContentList(AnswerEntity answerEntity){
+        return answerEntityMapper.queryAnswerContentList(answerEntity);
+    }
 }

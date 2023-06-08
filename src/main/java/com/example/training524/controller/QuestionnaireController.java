@@ -218,6 +218,30 @@ public class QuestionnaireController {
         return httpResponseEntity;
     }
 
+    /**
+     * 根据问卷ID回答问卷
+     */
+    @RequestMapping(value = "/queryAnswerContentList", method = RequestMethod.POST, headers = "Accept=application/json")
+    public HttpResponseEntity queryAnswerContentList(@RequestBody AnswerEntity answerEntity){
+        HttpResponseEntity httpResponseEntity = new HttpResponseEntity();
+        try{
+            List<AnswerEntity> result = questionnaireService.queryAnswerContentList(answerEntity);
+            if(!CollectionUtils.isEmpty(result)){
+                httpResponseEntity.setCode("666");
+                httpResponseEntity.setData(result);
+                httpResponseEntity.setMessage("查询成功");
+            }else{
+                httpResponseEntity.setCode("0");
+                httpResponseEntity.setData(0);
+                httpResponseEntity.setMessage("查询失败");
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return httpResponseEntity;
+    }
+
 //    /**
 //     * 项目修改
 //     */

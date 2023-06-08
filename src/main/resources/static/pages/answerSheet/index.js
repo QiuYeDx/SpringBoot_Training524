@@ -30,7 +30,8 @@ const handleSubmit = () => {
             }
         })
     }else{
-        let ans = saveUserAnswers();
+        let {isOK, ans} = saveUserAnswers();
+        if(!isOK) return;
         let params = {
             questionnaireId: questionnaireId,
             answerContent: encodeURIComponent(ans),
@@ -74,7 +75,7 @@ onload = () => {
             dataType: 'json',
             contentType: 'application/json',
             success(res){
-                console.log(res);
+                // console.log(res);
                 if(res.code !== '0'){   // 查询到结果
                     let date_now = Date.now();
                     if(res.data.isActive === 'false' || date_now > new Date(res.data.endDate).getTime())
@@ -98,7 +99,7 @@ const saveUserAnswers = () => {
     for (let i = 0; i < questions.length; i++) {
         let question = questions[i];
         let questionId = question.getAttribute("data-problemIndex");
-        let answer;
+        let answer = {};
 
         // 根据不同题型获取用户答案
         let questionType = question.getAttribute("data-type");
@@ -106,7 +107,9 @@ const saveUserAnswers = () => {
             let radioInputs = question.getElementsByTagName("input");
             for (let j = 0; j < radioInputs.length; j++) {
                 if (radioInputs[j].checked) {
-                    answer = radioInputs[j].value;
+                    answer.value = problem[i].option[j].chooseTerm;
+                    answer.index = i;
+                    answer.type = "1";
                     break;
                 }
             }
@@ -115,40 +118,52 @@ const saveUserAnswers = () => {
             let selectedOptions = [];
             for (let j = 0; j < checkboxInputs.length; j++) {
                 if (checkboxInputs[j].checked) {
-                    selectedOptions.push(checkboxInputs[j].value);
+                    selectedOptions.push(problem[i].option[j].chooseTerm);
                 }
             }
-            answer = selectedOptions;
+            answer.value = selectedOptions;
+            answer.index = i;
+            answer.type = "2";
         } else if (questionType === "3") { // 填空题
             let textarea = question.getElementsByTagName("textarea")[0];
-            answer = textarea.value;
+            answer.value = textarea.value;
+            answer.index = i;
+            answer.type = "3";
         } else if (questionType === "4") { // 矩阵问题
             let table = question.getElementsByTagName("table")[0];
             let tableInputs = table.getElementsByTagName("input");
             let matrixAnswers = [];
             for (let j = 0; j < tableInputs.length; j++) {
                 if (tableInputs[j].checked) {
-                    let row = Math.floor(j / 3) + 1;
-                    let column = (j % 3) + 1;
-                    matrixAnswers.push("A" + row + "B" + column);
+                    let row = Math.floor(j / problem[i].option.length);
+                    let column = (j % problem[i].option.length);
+                    matrixAnswers.push({left: problem[i].leftTitle.split(',')[row], top:problem[i].option[column].chooseTerm});
                 }
             }
-            answer = matrixAnswers;
+            answer.value = matrixAnswers;
+            answer.index = i;
+            answer.type = "4";
         } else if (questionType === "5") { // 量表问题
             let scaleInputs = question.getElementsByTagName("input");
             for (let j = 0; j < scaleInputs.length; j++) {
                 if (scaleInputs[j].checked) {
-                    answer = scaleInputs[j].value;
+                    answer.value = problem[i].option[j].chooseTerm;
+                    answer.index = i;
+                    answer.type = "5";
                     break;
                 }
             }
         }
-
+        // console.log(answer.value, (answer.value === undefined || answer.value.length === 0 ), problem[i].mustAnswer)
+        if((answer.value === undefined || answer.value.length === 0 ) && problem[i].mustAnswer){
+            alert("您有必答题未做：" + problem[i].problemName);
+            return {isOK: false, ans: JSON.stringify(userAnswers)};
+        }
         userAnswers[questionId] = answer;
     }
 
     // 将用户答案序列化为JSON字符串并保存
-    return JSON.stringify(userAnswers);
+    return {isOK: true, ans: JSON.stringify(userAnswers)};
 }
 
 const appendFunc = () => {
