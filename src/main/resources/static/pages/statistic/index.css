@@ -1,66 +1,45 @@
-/* 根据需要自定义样式 */
-.problem {
-    margin-bottom: 20px;
-}
-
-.questionnaire-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.questionnaire-description {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.btn-div {
-    text-align: center;
-    margin-top: 20px;
-}
-.problem {
-    margin-bottom: 20px;
-}
-.problem-name {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.option {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-.option-name {
-    width: 120px;
-    font-weight: bold;
-}
-.option-count {
-    flex-grow: 1;
-    background-color: lightblue;
-    height: 20px;
-    margin-left: 10px;
-}
-
-/* styles.css */
-
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #f0f2f5;
 }
 
 .title {
     text-align: center;
     margin-bottom: 40px;
+    font-size: 24px;
+    color: #333;
+}
+
+.description {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 18px;
+    color: #333;
 }
 
 .question {
     margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    padding: 20px;
 }
 
 .question-title {
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 30px;
     margin-bottom: 10px;
+    vertical-align: middle;
+    color: #333;
+}
+
+.must-answer {
+    line-height: 30px;
+    font-size: 14px;
+    vertical-align: middle;
+    color: #777;
 }
 
 .options {
@@ -68,48 +47,121 @@
 }
 
 .option {
+    gap: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(248 250 252);
+    height: 40px;
     position: relative;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    padding: 0 10px 0 10px;
 }
 
 .option-label {
-    flex: 1;
+    flex: 0;
+    width: auto;
     padding: 10px;
+    font-size: 16px;
+    color: #333;
+
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.gap{
+    flex: 1;
 }
 
 .option-count {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+    max-width: 580px;
+    min-width: 26px;
+    height: 26px;
     background-color: #4caf50;
-    border-radius: 5px;
+    border-radius: 999px;
+    /* position: absolute; */
+    /* right: 70px; */
+}
+
+@media (max-width: 1000px) {
+    .option-count {
+        max-width: 530px;
+    }
+}
+
+@media (max-width: 800px) {
+    .option-count {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 700px) {
+    .option-count {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .option-count {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 500px) {
+    .option-count {
+        max-width: 280px;
+    }
 }
 
 .option-percentage {
-    margin-left: 10px;
-    color: #fff;
+    /* position: absolute; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    /* left: 70px; */
+    font-size: 12px;
+    color: #4caf50;
 }
 
 .option-answer-count {
+    flex-shrink: 0;
     margin-left: 10px;
     font-size: 12px;
     color: #777;
 }
 
+.tk-answer-count {
+    font-size: 18px;
+    color: #4caf50;
+    margin-top: 5px;
+}
+
 .answers {
-    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: visible;
+    white-space: nowrap;
+    padding: 20px;
+    margin: -20px;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 .answer {
     margin-bottom: 5px;
     padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.answer-label {
+    color: #777;
+    margin-right: 10px;
 }
 
 .matrix {
@@ -119,13 +171,20 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    overflow: hidden;
 }
 
-th, td {
-    padding: 5px;
-    text-align: center;
+th,
+td {
+    padding: 10px;
+    text-align: center !important;
     border: 1px solid #ddd;
-    background-color: #f2f2f2;
+    background-color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
 }
 
 th {
@@ -133,6 +192,37 @@ th {
     color: #fff;
 }
 
-th:first-child, td:first-child {
-    text-align: left;
+th:first-child,
+td:first-child {
+    /*text-align: left;*/
 }
+
+
+/*table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+/*    border-radius: 8px;*/
+/*}*/
+
+/*th, td {*/
+/*    padding: 10px;*/
+/*    text-align: center !important;*/
+/*    border: none;*/
+/*    background-color: rgba(255, 255, 255, 0.8);*/
+/*    border-radius: 8px;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
+
+/*th {*/
+/*    background-color: #4caf50;*/
+/*    color: #fff;*/
+/*}*/
+
+/*th:first-child, td:first-child {*/
+/*    !*text-align: left;*!*/
+/*}*/
+
+/*th:hover, td:hover {*/
+/*    background-color: rgba(255, 255, 255, 1);*/
+/*}*/

@@ -537,6 +537,10 @@ const handleEditFinish = () => {
     contentType: "application/json",
     success(res) {
       // console.log(res)
+      localStorage.removeItem("problemList");
+      localStorage.removeItem("name");
+      localStorage.removeItem("desc");
+      localStorage.removeItem("isPreview");
       alert('编辑成功！')
       location.href = "/pages/questionnaire/index.html"
     }
