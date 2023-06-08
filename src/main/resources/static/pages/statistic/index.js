@@ -94,42 +94,19 @@ onload = () => {
 }
 
 const getStatistic = () => {
-    // problem.forEach((item, index) => {
-    //     switch(item.type){
-    //         case 1:
-    //             let arr = [];
-    //
-    //             statistic.push({
-    //
-    //             });
-    //             break;
-    //         case 2:
-    //             break;
-    //         case 3:
-    //             break;
-    //         case 4:
-    //             break;
-    //         case 5:
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // });
-    console.log(answerContentList);
-    statistic = new Array(problem.length);
-    statistic = statistic.map(() => {return new Map()});   // statistic是问题回答情况的数组
-    console.log(statistic);
+    statistic = [new Map(), new Map(), new Map(), new Map(), new Map()]; // statistic是问题回答情况的数组
+    // console.log(statistic);
     answerContentList.forEach((item, index) => {    // item是某个整个问卷的回答，包含所有问题
         item.forEach((v, i) => {    // v是某个问题的回答 v: {"value": "选项2", "index": 0, "type": "1"}
             switch(v.type){
-                case 1:
+                case "1":
                     if(!statistic[v.index].has(v.value)){
                         statistic[v.index].set(v.value, 1);
                     }else{
                         statistic[v.index].set(v.value, statistic[v.index].get(v.value) + 1);
                     }
                     break;
-                case 2:
+                case "2":
                     v.value.forEach((value, k) => {
                         if(!statistic[v.index].has(value)){
                             statistic[v.index].set(value, 1);
@@ -138,29 +115,35 @@ const getStatistic = () => {
                         }
                     });
                     break;
-                case 3: //  填空题 只记录 count 回答数量
+                case "3": //  填空题 只记录 count 回答数量
                     if(!statistic[v.index].has("count")){
                         statistic[v.index].set("count", 1);
                     }else{
                         statistic[v.index].set("count", statistic[v.index].get("count") + 1);
                     }
                     break;
-                case 4:
-                    v.value.forEach((value, k) => {
-                        if(!statistic[v.index].has(value)){
-                            statistic[v.index].set(value, 1);
+                case "4":
+                    v.value.forEach((value, k) => { //  value是{"left": "left1", "top": "选项1"}这样的对象
+                        if(!statistic[v.index].has(JSON.stringify(value))){
+                            statistic[v.index].set(JSON.stringify(value), 1);
                         }else{
-                            statistic[v.index].set(value, statistic[v.index].get(value) + 1);
+                            statistic[v.index].set(JSON.stringify(value), statistic[v.index].get(JSON.stringify(value)) + 1);
                         }
                     });
                     break;
-                case 5:
+                case "5":
+                    if(!statistic[v.index].has(v.value)){
+                        statistic[v.index].set(v.value, 1);
+                    }else{
+                        statistic[v.index].set(v.value, statistic[v.index].get(v.value) + 1);
+                    }
                     break;
                 default:
                     break;
             }
         })
     });
+    // console.log(statistic);
 }
 
 const queryAnswerContentList = () => {
