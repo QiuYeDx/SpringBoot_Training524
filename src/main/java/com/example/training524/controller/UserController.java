@@ -5,10 +5,7 @@ import com.example.training524.dao.entity.UserEntity;
 import com.example.training524.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ import java.util.List;
  * @Description 计算机实训第一次迭代
  */
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/admin")
 public class UserController {

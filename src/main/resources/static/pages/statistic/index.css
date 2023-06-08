@@ -1,3 +1,11 @@
+.btn-div{
+    text-align: center;
+}
+
+body{
+    background-color: #f0f2f5 !important;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -58,8 +66,15 @@
     margin-bottom: 10px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     padding: 0 10px 0 10px;
+    transition: all 0.4s ease;
+}
+
+.option:hover{
+    transition: all 0.15s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 .option-label {
@@ -84,39 +99,49 @@
     height: 26px;
     background-color: #4caf50;
     border-radius: 999px;
+
+    box-shadow: 0 0 0 rgba(0 0 0/10%);
+    transition: all 0.4s ease;
+
     /* position: absolute; */
     /* right: 70px; */
 }
 
-@media (max-width: 1000px) {
-    .option-count {
-        max-width: 530px;
-    }
+.option-count:hover {
+    background-color: #5bd260;
+    transition: all 0.15s;
+    box-shadow: 1px 1px 10px rgba(0 0 0/10%);
 }
 
-@media (max-width: 800px) {
-    .option-count {
-        max-width: 500px;
-    }
-}
+/*@media (max-width: 1000px) {*/
+/*    .option-count {*/
+/*        max-width: 530px;*/
+/*    }*/
+/*}*/
 
-@media (max-width: 700px) {
-    .option-count {
-        max-width: 400px;
-    }
-}
+/*@media (max-width: 800px) {*/
+/*    .option-count {*/
+/*        max-width: 500px;*/
+/*    }*/
+/*}*/
 
-@media (max-width: 600px) {
-    .option-count {
-        max-width: 300px;
-    }
-}
+/*@media (max-width: 700px) {*/
+/*    .option-count {*/
+/*        max-width: 400px;*/
+/*    }*/
+/*}*/
 
-@media (max-width: 500px) {
-    .option-count {
-        max-width: 280px;
-    }
-}
+/*@media (max-width: 600px) {*/
+/*    .option-count {*/
+/*        max-width: 300px;*/
+/*    }*/
+/*}*/
+
+/*@media (max-width: 500px) {*/
+/*    .option-count {*/
+/*        max-width: 280px;*/
+/*    }*/
+/*}*/
 
 .option-percentage {
     /* position: absolute; */
@@ -172,8 +197,14 @@ table {
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
-    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition: all 0.4s ease;
     overflow: hidden;
+}
+table:hover{
+    transition: all 0.25s ease;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 th,

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * @Date 2023/6/5 16:40
  * @Description 计算机实训第三次迭代
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/answerSheet")
 public class AnswerController {
