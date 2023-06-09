@@ -28,3 +28,7 @@
 2023-06-08 13:34:19[ INFO ]>>createQuestionnaire创建问卷测试成功
 2023-06-08 22:41:13[ INFO ]>>createQuestionnaire创建问卷测试成功
 2023-06-08 23:38:23[ INFO ]>>createQuestionnaire创建问卷测试成功
+2023-06-09 12:01:42[ INFO ]>>queryQuestionnaireListNow问卷列表查询测试成功
+2023-06-09 12:01:42[ INFO ]>>queryQuestionnaireList问卷列表查询测试成功
+2023-06-09 12:01:43[ INFO ]>>createQuestionnaire创建问卷测试成功
+2023-06-09 13:36:36[ INFO ]>>queryAnswerContentList问卷回答列表查询测试成功

@@ -1,9 +1,11 @@
 package com.example.training524;
 
 import com.example.training524.common.utils.UUIDUtil;
+import com.example.training524.dao.AnswerEntityMapper;
 import com.example.training524.dao.ProjectEntityMapper;
 import com.example.training524.dao.QuestionnaireEntityMapper;
 import com.example.training524.dao.UserEntityMapper;
+import com.example.training524.dao.entity.AnswerEntity;
 import com.example.training524.dao.entity.ProjectEntity;
 import com.example.training524.dao.entity.QuestionnaireEntity;
 import com.example.training524.dao.entity.UserEntity;
@@ -435,6 +437,27 @@ class DemoApplicationTests {
             System.out.println(result);
             // 记录info级别的信息
             log.info(">>closeQuestionnaire关闭问卷测试成功");
+        }
+    }
+
+    @Test
+    public void queryAnswerContentList() throws Exception {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        //创建ProjectMapper对象，mybatis自动生成mapper代理对象
+        AnswerEntityMapper answerEntityMapper = sqlSession.getMapper(AnswerEntityMapper.class);
+        //调用answerMapper的方法
+        AnswerEntity answerEntity = new AnswerEntity();
+        answerEntity.setQuestionnaireId("212b12ce4e1b429486ceaa4ea13e1028");
+        List<AnswerEntity> list = answerEntityMapper.queryAnswerContentList(answerEntity);
+        if(CollectionUtils.isEmpty(list)){
+            // 记录error级别的信息
+        }else{
+            System.out.println(list);
+            // 记录info级别的信息
+            log.info(">>queryAnswerContentList问卷回答列表查询测试成功");
         }
     }
 }
