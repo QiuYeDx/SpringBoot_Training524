@@ -2,6 +2,12 @@ let questionnaireTitle = '问卷标题'
 let questionnaireDescription = '问卷说明'
 const problem = []
 
+const hasDuplicates = (array) => {
+  let tmp = array.map((item, index) => {return JSON.stringify({item})});
+  return new Set(tmp).size !== tmp.length;
+}
+
+
 onload = () => {
   problem.questionnaireTitle = questionnaireTitle;
   problem.questionnaireDescription = questionnaireDescription;
@@ -234,6 +240,8 @@ const singleChoiceDelOption = (problemIndex, optionIndex) => {
 
 const singleChoiceEditFinish = (problemIndex) => {
   problem[problemIndex].type = 1; // 单选
+  if(hasDuplicates(problem[problemIndex].option))
+    return alert('有重复选项！');
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -300,6 +308,8 @@ const multipleChoiceDelOption = (problemIndex, optionIndex) => {
 
 const multipleChoiceEditFinish = (problemIndex) => {
   problem[problemIndex].type = 2; // 多选
+  if(hasDuplicates(problem[problemIndex].option))
+    return alert('有重复选项！');
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -398,6 +408,8 @@ const matrixDelOption = (problemIndex, optionIndex) => {
 
 const matrixEditFinish = (problemIndex) => {
   problem[problemIndex].type = 4; // 矩阵
+  if(hasDuplicates(problem[problemIndex].leftTitle.split(',')))
+    return alert('有重复选项！');
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'inline')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
@@ -493,6 +505,8 @@ const gaugeDelOption = (problemIndex, optionIndex) => {
 
 const gaugeEditFinish = (problemIndex) => {
   problem[problemIndex].type = 5; // 量表
+  if(hasDuplicates(problem[problemIndex].option))
+    return alert('有重复选项！');
   $(`#question${problemIndex} .bottom`).css('display', 'none')
   $(`#question${problemIndex} .bottom2`).css('display', 'flex')
   $(`#question${problemIndex} #questionTitle`).text(`${problemIndex + 1}.${problem[problemIndex].problemName}`)
