@@ -195,6 +195,11 @@ const fetchQuestionnaireList = (id) => {
     contentType: "application/json",
     success(res) {
       let questionnaireList = res.data
+      questionnaireList.sort((a, b) => {
+        let time_a = new Date(a.creationDate).getTime();
+        let time_b = new Date(b.creationDate).getTime();
+        return time_b - time_a;
+      })
       console.log(questionnaireList, 'res')
       res.data.map((item, index) => {
         $('#content').append(`
@@ -214,3 +219,4 @@ const fetchQuestionnaireList = (id) => {
     }
   })
 }
+
