@@ -23,12 +23,12 @@
   <select id="queryUserList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.UserEntity">
     SELECT
     *
-    FROM user_info
+    FROM USER_INFO
     WHERE status = "1"
   </select>
 
   <insert id="insert" parameterType="com.example.training524.dao.entity.UserEntity">
-    insert into user_info (id, username, password,
+    insert into USER_INFO (id, username, password,
     start_time, stop_time,
     status, created_by, creation_date,
     last_update_by, last_update_date)
@@ -39,17 +39,17 @@
   </insert>
 
   <delete id="deleteUserById" parameterType="com.example.training524.dao.entity.UserEntity">
-    delete from user_info
+    delete from USER_INFO
     where id = #{id,jdbcType=VARCHAR}
   </delete>
 
   <delete id="deleteUserByName" parameterType="com.example.training524.dao.entity.UserEntity">
-    delete from user_info
+    delete from USER_INFO
     where username = #{username,jdbcType=VARCHAR}
   </delete>
 
   <update id="updateByPrimaryKey" parameterType="com.example.training524.dao.entity.UserEntity">
-    update user_info
+    update USER_INFO
     set username = #{username,jdbcType=VARCHAR},
     password = #{password,jdbcType=VARCHAR},
 
@@ -64,7 +64,7 @@
   </update>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.example.training524.dao.entity.UserEntity">
-    update user_info
+    update USER_INFO
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
@@ -117,7 +117,7 @@
     <!--根据用户名(和密码)查找用户信息-->
   <select id="selectUserInfo" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.UserEntity">
     SELECT id,username,`password`,status
-    FROM user_info
+    FROM USER_INFO
     WHERE username = #{username,jdbcType=VARCHAR} and `password` = #{password,jdbcType=VARCHAR}
     AND status = "1"
   </select>

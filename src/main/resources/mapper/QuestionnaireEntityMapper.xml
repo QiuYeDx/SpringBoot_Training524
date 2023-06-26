@@ -27,7 +27,7 @@
     <select id="queryQuestionnaireList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
         SELECT
             *
-        FROM questionnaire_info
+        FROM QUESTIONNAIRE_INFO
         WHERE project_id = #{projectId,jdbcType=VARCHAR}
     </select>
 
@@ -35,12 +35,12 @@
     <select id="queryQuestionnaire" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
         SELECT
             *
-        FROM questionnaire_info
+        FROM QUESTIONNAIRE_INFO
         WHERE id = #{id,jdbcType=VARCHAR}
     </select>
 
     <insert id="createQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
-        insert into questionnaire_info (id, project_id, questionnaire_name, questionnaire_description, questionnaire_content,
+        insert into QUESTIONNAIRE_INFO (id, project_id, questionnaire_name, questionnaire_description, questionnaire_content,
                                   created_by, creation_date,
                                   last_updated_by, last_update_date, start_date, end_date, release_date, questionnaire_type, is_active)
         values (#{id,jdbcType=VARCHAR}, #{projectId,jdbcType=VARCHAR}, #{questionnaireName,jdbcType=VARCHAR}, #{questionnaireDescription,jdbcType=VARCHAR}, #{questionnaireContent,jdbcType=VARCHAR},
@@ -52,18 +52,18 @@
     <select id="queryQuestionnaireListNow" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">
         SELECT
             *
-        FROM questionnaire_info
+        FROM QUESTIONNAIRE_INFO
         WHERE project_id = #{projectId,jdbcType=VARCHAR} AND end_date > CURRENT_DATE AND is_active = 'true'
     </select>
 
     <update id="publicQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
-        update questionnaire_info
+        update QUESTIONNAIRE_INFO
         set release_date = #{releaseDate,jdbcType=TIMESTAMP}, is_active = 'true'
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
     <update id="modifyQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
-        update questionnaire_info
+        update QUESTIONNAIRE_INFO
         set questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR},
             questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},
             questionnaire_description = #{questionnaireDescription,jdbcType=VARCHAR}
@@ -71,18 +71,18 @@
     </update>
 
     <update id="closeQuestionnaire" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">
-        update questionnaire_info
+        update QUESTIONNAIRE_INFO
         set is_active = 'false'
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
 <!--    <delete id="deleteQuestionnaireById" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
-<!--        delete from questionnaire_info-->
+<!--        delete from QUESTIONNAIRE_INFO-->
 <!--        where id = #{id,jdbcType=VARCHAR}-->
 <!--    </delete>-->
 
 <!--    <update id="updateByPrimaryKey" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
-<!--        update questionnaire_info-->
+<!--        update QUESTIONNAIRE_INFO-->
 <!--        set project_id = #{projectId,jdbcType=VARCHAR},-->
 <!--            questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},-->
 <!--            questionnaire_content = #{questionnaireContent,jdbcType=VARCHAR},-->
@@ -94,7 +94,7 @@
 <!--    </update>-->
 
 <!--    <update id="updateByPrimaryKeySelective" parameterType="com.example.training524.dao.entity.QuestionnaireEntity">-->
-<!--        update questionnaire_info-->
+<!--        update QUESTIONNAIRE_INFO-->
 <!--        <set>-->
 <!--            <if test="questionnaireName != null">-->
 <!--                questionnaire_name = #{questionnaireName,jdbcType=VARCHAR},-->
@@ -127,14 +127,14 @@
 <!--    &lt;!&ndash;根据项目名查找项目信息&ndash;&gt;-->
 <!--    <select id="selectQuestionnaireInfo" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">-->
 <!--        SELECT *-->
-<!--        FROM questionnaire_info-->
+<!--        FROM QUESTIONNAIRE_INFO-->
 <!--        WHERE questionnaire_name = #{questionnaireName,jdbcType=VARCHAR} AND created_by = #{createdBy,jdbcType=VARCHAR}-->
 <!--    </select>-->
 
 <!--    &lt;!&ndash;根据项目ID查找项目信息&ndash;&gt;-->
 <!--    <select id="selectQuestionnaireInfoById" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.QuestionnaireEntity">-->
 <!--        SELECT *-->
-<!--        FROM questionnaire_info-->
+<!--        FROM QUESTIONNAIRE_INFO-->
 <!--        WHERE id = #{id,jdbcType=VARCHAR}-->
 <!--    </select>-->
 

@@ -18,7 +18,7 @@
     <select id="queryAnswerContentList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.AnswerEntity">
         SELECT
             answer_content
-        FROM answer_info
+        FROM ANSWER_INFO
         WHERE questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
     </select>
 
@@ -26,13 +26,13 @@
     <select id="queryAnswer" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.AnswerEntity">
         SELECT
             *
-        FROM answer_info
+        FROM ANSWER_INFO
         WHERE id = #{id,jdbcType=VARCHAR}
     </select>
 
     <!--根据问卷ID回答问卷-->
     <insert id="answerQuestionnaire" parameterType="com.example.training524.dao.entity.AnswerEntity">
-        insert into answer_info (id, questionnaire_id, answer_content, answered_by, answer_date, last_answer_date)
+        insert into ANSWER_INFO (id, questionnaire_id, answer_content, answered_by, answer_date, last_answer_date)
         values (#{id,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR}, #{answerContent,jdbcType=VARCHAR},
                 #{answeredBy,jdbcType=VARCHAR}, DEFAULT, DEFAULT)
     </insert>

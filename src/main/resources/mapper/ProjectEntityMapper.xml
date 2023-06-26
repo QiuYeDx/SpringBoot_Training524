@@ -21,12 +21,12 @@
     <select id="queryProjectList" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.ProjectEntity">
         SELECT
             *
-        FROM project_info
+        FROM PROJECT_INFO
         WHERE created_by = #{createdBy,jdbcType=VARCHAR}
     </select>
 
     <insert id="insert" parameterType="com.example.training524.dao.entity.ProjectEntity">
-        insert into project_info (id, user_id, project_name, project_content,
+        insert into PROJECT_INFO (id, user_id, project_name, project_content,
                                created_by, creation_date,
                                last_update_by, last_update_date)
         values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectContent,jdbcType=VARCHAR},
@@ -35,12 +35,12 @@
     </insert>
 
     <delete id="deleteProjectById" parameterType="com.example.training524.dao.entity.ProjectEntity">
-        delete from project_info
+        delete from PROJECT_INFO
         where id = #{id,jdbcType=VARCHAR}
     </delete>
 
     <update id="updateByPrimaryKey" parameterType="com.example.training524.dao.entity.ProjectEntity">
-        update project_info
+        update PROJECT_INFO
         set user_id = #{userId,jdbcType=VARCHAR},
             project_name = #{projectName,jdbcType=VARCHAR},
             project_content = #{projectContent,jdbcType=VARCHAR},
@@ -52,7 +52,7 @@
     </update>
 
     <update id="updateByPrimaryKeySelective" parameterType="com.example.training524.dao.entity.ProjectEntity">
-        update project_info
+        update PROJECT_INFO
         <set>
             <if test="projectName != null">
                 project_name = #{projectName,jdbcType=VARCHAR},
@@ -85,14 +85,14 @@
     <!--根据项目名查找项目信息-->
     <select id="selectProjectInfo" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.ProjectEntity">
         SELECT *
-        FROM project_info
+        FROM PROJECT_INFO
         WHERE project_name = #{projectName,jdbcType=VARCHAR} AND created_by = #{createdBy,jdbcType=VARCHAR}
     </select>
 
     <!--根据项目ID查找项目信息-->
     <select id="selectProjectInfoById" parameterType="java.lang.String" resultType="com.example.training524.dao.entity.ProjectEntity">
         SELECT *
-        FROM project_info
+        FROM PROJECT_INFO
         WHERE id = #{id,jdbcType=VARCHAR}
     </select>
 
